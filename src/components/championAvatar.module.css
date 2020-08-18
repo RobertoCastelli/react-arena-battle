@@ -1,0 +1,18 @@
+.avatarWrapper {
+  position: relative;
+  margin-top: 1rem;
+}
+
+.avatarImage {
+  border-radius: 50%;
+}
+
+.avatarName {
+  position: absolute;
+  top: 80px;
+  left: 30px;
+  font-weight: bold;
+  color: #333333;
+  background-color: antiquewhite;
+  transform: rotate(-10deg);
+}

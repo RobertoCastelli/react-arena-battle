@@ -2,14 +2,14 @@ import React from "react";
 import "./App.css";
 import Footer from "./components/Footer";
 import Title from "./components/Title";
-import ChampionSelect from "./components/ChampionSelect";
+import ChampionList from "./components/ChampionList";
 
 function App() {
   return (
     <div className="container">
       <div className="content">
         <Title />
-        <ChampionSelect />
+        <ChampionList />
       </div>
       <Footer />
     </div>
