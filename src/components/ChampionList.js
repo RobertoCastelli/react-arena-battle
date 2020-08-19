@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import ChampionAvatar from "./ChampionAvatar";
 import { champions } from "../data";
+import { Context } from "../context";
 
 const ChampionList = () => {
-  const handleModal = () => {
-    console.log("ciao");
-  };
+  const context = useContext(Context);
+
   return (
     <div>
       <ul>
@@ -15,7 +15,7 @@ const ChampionList = () => {
               <ChampionAvatar
                 name={champ.name}
                 src={champ.icon}
-                onClick={handleModal}
+                onClick={() => context.openModal(champ.name)}
               />
             </li>
           );

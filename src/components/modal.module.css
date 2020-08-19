@@ -8,13 +8,13 @@
   right: 0;
   bottom: 0;
   z-index: 1;
-  visibility: hidden; /* <-- REMOVE */
+  /* visibility: hidden; <-- REMOVE */
 }
 
 .modalContent {
   display: flex;
   flex-direction: column;
-  min-height: 40vh;
+  min-height: 45vh;
   width: 300px;
   border: 0.5rem outset antiquewhite;
   background-image: url("../images/bg-stats.jpg");
@@ -26,6 +26,12 @@
   display: grid;
   place-content: center;
   flex-grow: 1;
+}
+
+.modalBody img {
+  width: 100px;
+  margin: auto;
+  border: 0.5rem inset antiquewhite;
 }
 
 .modalButtons {

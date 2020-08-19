@@ -18,7 +18,7 @@ export const champions = [
     defence: 65,
     speed: 40,
     status: "alive",
-    description: "High health",
+    description: "high health",
   },
   {
     icon: mage,
@@ -33,7 +33,7 @@ export const champions = [
     defence: 55,
     speed: 70,
     status: "alive",
-    description: "High damage",
+    description: "high damage",
   },
   {
     icon: knight,
@@ -48,7 +48,7 @@ export const champions = [
     defence: 95,
     speed: 40,
     status: "alive",
-    description: "High defence",
+    description: "high defence",
   },
   {
     icon: thief,
@@ -63,7 +63,7 @@ export const champions = [
     defence: 50,
     speed: 100,
     status: "alive",
-    description: "High speed",
+    description: "high speed",
   },
   {
     icon: alchemist,
@@ -78,7 +78,7 @@ export const champions = [
     defence: 70,
     speed: 80,
     status: "alive",
-    description: "High energy",
+    description: "high energy",
   },
 ];
 
