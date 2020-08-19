@@ -1,0 +1,31 @@
+.arenaDisplay {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  grid-template-areas: "player score enemy";
+  margin-top: 1rem;
+}
+.arenaPlayer {
+  grid-area: player;
+}
+
+.arenaScore {
+  grid-area: score;
+}
+.arenaEnemy {
+  grid-area: enemy;
+}
+
+.arenaImage {
+  width: 100%;
+}
+
+.arenaPlayer,
+.arenaScore,
+.arenaEnemy {
+  background-image: url("../../images/bg-stats.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 0.5rem outset antiquewhite;
+  height: 30vh;
+}

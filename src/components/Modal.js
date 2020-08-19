@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import modalStyle from "./modal.module.css";
 import { Context } from "../context";
+import { Link } from "react-router-dom";
 
 const Modal = () => {
   const context = useContext(Context);
@@ -20,7 +21,14 @@ const Modal = () => {
             <p>skill: {description}</p>
           </div>
           <div className={modalStyle.modalButtons}>
-            <button className={modalStyle.modalBtnConfirm}>CONFIRM</button>
+            <Link to="/arena">
+              <button
+                onClick={() => context.closeModal()}
+                className={modalStyle.modalBtnConfirm}
+              >
+                CONFIRM
+              </button>
+            </Link>
             <button
               onClick={() => context.closeModal()}
               className={modalStyle.modalBtnCancel}

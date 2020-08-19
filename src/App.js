@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Title from "./components/Title";
 import ChampionList from "./components/ChampionList";
-import Arena from "./Arena";
+import Arena from "./components/arena/Arena";
 import Footer from "./components/Footer";
 import PageDefault from "./components/PageDefault";
 import ContextProvider from "./context";

@@ -1,4 +1,5 @@
 .modalWrapper {
+  color: #333333;
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   display: grid;
@@ -29,9 +30,9 @@
 }
 
 .modalBody img {
-  width: 100px;
+  width: 130px;
   margin: auto;
-  border: 0.5rem inset antiquewhite;
+  border: 0.3rem inset antiquewhite;
 }
 
 .modalButtons {
@@ -43,9 +44,9 @@
 
 .modalBtnConfirm {
   transition: all 0.5s ease;
-  color: white;
   border: 0.3rem outset #999999;
   background-color: #666666;
+  color: white;
   padding: 1rem;
   width: 100px;
   outline: none;
@@ -54,9 +55,9 @@
 
 .modalBtnCancel {
   transition: all 0.5s ease;
+  border: 0.3rem outset rgb(185, 91, 91);
+  background-color: brown;
   color: white;
-  background-color: teal;
-  border: 0.3rem outset cadetblue;
   padding: 1rem;
   width: 100px;
   outline: none;
@@ -71,8 +72,9 @@
 }
 
 .modalBtnCancel:hover {
-  background-color: brown;
-  border: 0.3rem outset rgb(185, 91, 91);
   cursor: pointer;
+
+  border: 0.3rem outset cadetblue;
+  background-color: teal;
   color: white;
 }
