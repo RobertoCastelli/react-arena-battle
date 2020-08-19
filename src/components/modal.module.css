@@ -1,0 +1,72 @@
+.modalWrapper {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  display: grid;
+  place-content: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  visibility: hidden; /* <-- REMOVE */
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  min-height: 40vh;
+  width: 300px;
+  border: 0.5rem outset antiquewhite;
+  background-image: url("../images/bg-stats.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.modalBody {
+  display: grid;
+  place-content: center;
+  flex-grow: 1;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: space-around;
+  flex-shrink: 1;
+  margin-bottom: 1rem;
+}
+
+.modalBtnConfirm {
+  transition: all 0.5s ease;
+  color: white;
+  border: 0.3rem outset #999999;
+  background-color: #666666;
+  padding: 1rem;
+  width: 100px;
+  outline: none;
+  text-transform: uppercase;
+}
+
+.modalBtnCancel {
+  transition: all 0.5s ease;
+  color: white;
+  background-color: teal;
+  border: 0.3rem outset cadetblue;
+  padding: 1rem;
+  width: 100px;
+  outline: none;
+  text-transform: uppercase;
+}
+
+.modalBtnConfirm:hover {
+  cursor: pointer;
+  border: 0.3rem outset #666666;
+  background-color: #333333;
+  color: white;
+}
+
+.modalBtnCancel:hover {
+  background-color: brown;
+  border: 0.3rem outset rgb(185, 91, 91);
+  cursor: pointer;
+  color: white;
+}

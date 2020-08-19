@@ -6,6 +6,7 @@ import ChampionList from "./components/ChampionList";
 import Modal from "./components/Modal";
 import Arena from "./Arena";
 import Footer from "./components/Footer";
+import PageDefault from "./components/PageDefault";
 
 function App() {
   return (
@@ -17,7 +18,9 @@ function App() {
             <Route exact path="/" component={ChampionList} />
             <Route path="/arena" component={Arena} />
             <Route path="/modal" component={Modal} />
+            <Route component={PageDefault} />
           </Switch>
+          <Modal />
         </div>
         <Footer />
       </div>

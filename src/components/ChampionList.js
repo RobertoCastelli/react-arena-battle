@@ -1,18 +1,22 @@
 import React from "react";
 import ChampionAvatar from "./ChampionAvatar";
 import { champions } from "../data";
-import { Link } from "react-router-dom";
 
 const ChampionList = () => {
+  const handleModal = () => {
+    console.log("ciao");
+  };
   return (
     <div>
       <ul>
         {champions.map((champ) => {
           return (
             <li key={champ.name}>
-              <Link to="/modal">
-                <ChampionAvatar name={champ.name} src={champ.icon} />
-              </Link>
+              <ChampionAvatar
+                name={champ.name}
+                src={champ.icon}
+                onClick={handleModal}
+              />
             </li>
           );
         })}

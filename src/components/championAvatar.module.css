@@ -9,10 +9,13 @@
   height: 100px;
   transition: all 0.5s ease;
   border: 2px solid #333333;
+  opacity: 0.6;
 }
 
 .avatarImage:hover {
   transform: scale(1.1);
+  opacity: 1;
+  cursor: pointer;
 }
 
 .avatarName {
