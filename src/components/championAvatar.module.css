@@ -5,6 +5,14 @@
 
 .avatarImage {
   border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  transition: all 0.5s ease;
+  border: 2px solid #333333;
+}
+
+.avatarImage:hover {
+  transform: scale(1.1);
 }
 
 .avatarName {
@@ -12,7 +20,9 @@
   top: 80px;
   left: 30px;
   font-weight: bold;
+  padding: 0.2rem;
   color: #333333;
+  border: 2px solid #333333;
   background-color: antiquewhite;
   transform: rotate(-10deg);
 }

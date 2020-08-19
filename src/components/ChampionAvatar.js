@@ -6,8 +6,9 @@ const ChampionAvatar = (props) => {
     <div className={championAvatarStyle.avatarWrapper}>
       <img
         className={championAvatarStyle.avatarImage}
-        src="https://via.placeholder.com/100"
+        src={props.src}
         alt="avatar"
+        onClick={props.onClick}
       />
       <p className={championAvatarStyle.avatarName}>{props.name}</p>
     </div>

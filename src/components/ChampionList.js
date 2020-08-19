@@ -1,6 +1,7 @@
 import React from "react";
 import ChampionAvatar from "./ChampionAvatar";
 import { champions } from "../data";
+import { Link } from "react-router-dom";
 
 const ChampionList = () => {
   return (
@@ -9,7 +10,9 @@ const ChampionList = () => {
         {champions.map((champ) => {
           return (
             <li key={champ.name}>
-              <ChampionAvatar name={champ.name} />
+              <Link to="/modal">
+                <ChampionAvatar name={champ.name} src={champ.icon} />
+              </Link>
             </li>
           );
         })}

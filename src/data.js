@@ -1,7 +1,13 @@
+import barbarian from "./images/barbarian.jpg";
+import mage from "./images/mage.jpg";
+import thief from "./images/thief.jpg";
+import alchemist from "./images/alchemist.jpg";
+import knight from "./images/knight.jpg";
+
 export const champions = [
   {
-    icon: "./images/players/barbarian.jpg",
-    avatar: "./images/players/barbarian.gif",
+    icon: barbarian,
+    avatar: "./images/barbarian.gif",
     name: "Doss",
     classe: "human",
     type: "player",
@@ -14,8 +20,8 @@ export const champions = [
     description: "High health",
   },
   {
-    icon: "./images/players/mage.jpg",
-    avatar: "./images/players/mage.gif",
+    icon: mage,
+    avatar: "./images/mage.gif",
     name: "Waltz",
     classe: "human",
     type: "player",
@@ -28,8 +34,8 @@ export const champions = [
     description: "High damage",
   },
   {
-    icon: "./images/players/knight.jpg",
-    avatar: "./images/players/knight.gif",
+    icon: knight,
+    avatar: "./images/knight.gif",
     name: "Polish",
     classe: "human",
     type: "player",
@@ -42,8 +48,8 @@ export const champions = [
     description: "High defence",
   },
   {
-    icon: "./images/players/dagger.jpg",
-    avatar: "./images/players/dagger.gif",
+    icon: thief,
+    avatar: "./images/thief.gif",
     name: "Robbo",
     classe: "human",
     type: "player",
@@ -56,8 +62,8 @@ export const champions = [
     description: "High speed",
   },
   {
-    icon: "./images/players/alchemist.jpg",
-    avatar: "./images/players/alchemist.gif",
+    icon: alchemist,
+    avatar: "./images/alchemist.gif",
     name: "Erika",
     classe: "human",
     type: "player",
