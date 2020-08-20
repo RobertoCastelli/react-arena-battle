@@ -21,7 +21,7 @@
 
 .arenaBackground {
   width: 100%;
-  border: 0.5rem outset bisque;
+  border: 0.5rem ridge bisque;
 }
 
 /**********/
@@ -49,7 +49,6 @@
 }
 
 .arenaPlayerWrapper,
-.arenaScoreWrapper,
 .arenaEnemyWrapper {
   background-image: url("../../images/bg-stats.jpg");
   background-size: cover;
@@ -57,6 +56,10 @@
   border: 0.5rem outset bisque;
   height: 32vh;
   color: #333333;
+}
+
+label {
+  font-weight: bold;
 }
 
 progress {
@@ -112,6 +115,52 @@ progress::-webkit-progress-bar {
 .arenaEnemyEnergy::-webkit-progress-value {
   background: orange;
   transition: width 1s ease-in-out;
+}
+
+/*********/
+/* SCORE */
+/*********/
+.arenaScoreWrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, auto);
+  gap: 0.5rem;
+  height: 32vh;
+  grid-template-areas:
+    "level"
+    "info"
+    "logs";
+  text-align: center;
+}
+.arenaScoreLevel {
+  grid-area: level;
+}
+.arenaScoreInfo {
+  grid-area: info;
+}
+.arenaScoreLogs {
+  grid-area: logs;
+}
+
+.arenaScoreLevel,
+.arenaScoreInfo,
+.arenaScoreLogs {
+  background-image: url("../../images/bg-stats.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 0.5rem ridge bisque;
+  color: #333333;
+}
+
+.arenaScoreNumber {
+  background-color: #333333;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 3rem;
+  width: max-content;
+  margin: auto;
+  padding: 0.3rem 0.5rem;
 }
 
 /***********/

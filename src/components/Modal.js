@@ -26,7 +26,7 @@ const Modal = () => {
                 onClick={() => context.closeModal()}
                 className={modalStyle.modalBtnConfirm}
               >
-                CONFIRM
+                SELECT
               </button>
             </Link>
             <button
