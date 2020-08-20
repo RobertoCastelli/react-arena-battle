@@ -2,12 +2,14 @@ import React, { useContext } from "react";
 import ChampionAvatar from "./ChampionAvatar";
 import { champions } from "../data";
 import { Context } from "../context";
+import Title from "./Title";
 
 const ChampionList = () => {
   const context = useContext(Context);
 
   return (
     <div>
+      <Title title="Choose your Champion" />
       <ul>
         {champions.map((champ) => {
           return (

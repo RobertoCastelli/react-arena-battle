@@ -1,24 +1,20 @@
-import React from "react";
-import modalStyle from "../../components/modal.module.css";
+import React, { useContext } from "react";
 import arenaStyle from "./arena.module.css";
 import ArenaImage from "./ArenaImage";
 import ArenaPlayer from "./ArenaPlayer";
 import ArenaScore from "./ArenaScore";
 import ArenaEnemy from "./ArenaEnemy";
+import { Context } from "../../context";
+import BtnActions from "./BtnActions";
 
 const Arena = () => {
+  const context = useContext(Context);
+
   return (
     <div>
       <div className={arenaStyle.arenaWrapper}>
         <div className={arenaStyle.arenaContent}>
-          <div className={arenaStyle.arenaActions}>
-            <button className={modalStyle.modalBtnConfirm}>ACTION</button>
-            <button className={modalStyle.modalBtnConfirm}>ACTION</button>
-            <button className={modalStyle.modalBtnConfirm}>ACTION</button>
-            <button className={modalStyle.modalBtnConfirm}>ACTION</button>
-            <button className={modalStyle.modalBtnCancel}>ACTION</button>
-            <button className={modalStyle.modalBtnConfirm}>ACTION</button>
-          </div>
+          <BtnActions />
           <ArenaImage />
           <div className={arenaStyle.arenaDisplay}>
             <ArenaPlayer />

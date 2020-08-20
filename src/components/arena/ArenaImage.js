@@ -5,7 +5,11 @@ import arenaStyle from "./arena.module.css";
 const ArenaImage = () => {
   return (
     <div>
-      <img className={arenaStyle.arenaImage} src={bgArena} alt="bg-arena" />
+      <img
+        className={arenaStyle.arenaBackground}
+        src={bgArena}
+        alt="bg-arena"
+      />
     </div>
   );
 };

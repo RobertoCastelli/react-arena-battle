@@ -1,11 +1,11 @@
 import React from "react";
 
-const Title = () => {
+const Title = (props) => {
   return (
     <header>
       <h1>Arena Battle Simulator</h1>
       <hr />
-      <p>Choose your Champion</p>
+      <p>{props.title}</p>
     </header>
   );
 };

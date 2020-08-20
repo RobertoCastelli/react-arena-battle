@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import Title from "./components/Title";
+
 import ChampionList from "./components/ChampionList";
 import Arena from "./components/arena/Arena";
 import Footer from "./components/Footer";
@@ -15,7 +15,6 @@ function App() {
       <div className="container">
         <div className="content">
           <ContextProvider>
-            <Title />
             <Switch>
               <Route exact path="/" component={ChampionList} />
               <Route path="/arena" component={Arena} />

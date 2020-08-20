@@ -4,7 +4,7 @@ import arenaStyle from "./arena.module.css";
 const ArenaScore = () => {
   return (
     <div>
-      <div className={arenaStyle.arenaScore}>SCORE</div>
+      <div className={arenaStyle.arenaScoreWrapper}>SCORE</div>
     </div>
   );
 };

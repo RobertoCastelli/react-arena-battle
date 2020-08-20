@@ -23,6 +23,9 @@ const ContextProvider = (props) => {
   //--> CLOSE CHAMPION MODAL CARD
   const closeModal = () => setModalState(false);
 
+  //--> SHOW RULES
+  const showRules = () => alert("Survive all 10 levels, with one life only");
+
   //--> RENDER
   return (
     <Context.Provider
@@ -34,6 +37,7 @@ const ContextProvider = (props) => {
         getChampion,
         openModal,
         closeModal,
+        showRules,
       }}
     >
       {props.children}

@@ -17,7 +17,7 @@
   flex-direction: column;
   min-height: 45vh;
   width: 300px;
-  border: 0.5rem outset antiquewhite;
+  border: 0.5rem outset bisque;
   background-image: url("../images/bg-stats.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -32,7 +32,7 @@
 .modalBody img {
   width: 130px;
   margin: auto;
-  border: 0.3rem inset antiquewhite;
+  border: 0.3rem inset bisque;
 }
 
 .modalButtons {
