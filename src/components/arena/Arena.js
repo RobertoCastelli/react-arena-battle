@@ -6,6 +6,7 @@ import ArenaScore from "./ArenaScore";
 import ArenaEnemy from "./ArenaEnemy";
 import { Context } from "../../context";
 import BtnActions from "./BtnActions";
+import BtnInit from "./BtnInit";
 
 const Arena = () => {
   const context = useContext(Context);
@@ -15,6 +16,7 @@ const Arena = () => {
       <div className={arenaStyle.arenaWrapper}>
         <div className={arenaStyle.arenaContent}>
           <BtnActions />
+          {/* <BtnInit /> */}
           <ArenaImage />
           <div className={arenaStyle.arenaDisplay}>
             <ArenaPlayer />
