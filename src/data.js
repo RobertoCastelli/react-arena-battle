@@ -88,19 +88,22 @@ export const champions = [
   },
 ];
 
+export const enemies = [
+  {
+    icon: "./images/mobs/renekaj.jpg",
+    avatar: "./images/mobs/renekaj.gif",
+    name: "Renekaj",
+    type: "enemy",
+    energy: 100,
+    health: 100,
+    strength: 100,
+    defence: 100,
+    speed: 100,
+    status: "alive",
+  },
+];
+
 // const mobs = [
-//   {
-//     icon: "./images/mobs/renekaj.jpg",
-//     avatar: "./images/mobs/renekaj.gif",
-//     name: "Renekaj",
-//     type: "enemy",
-//     energy: diceRoll(50, 100),
-//     health: diceRoll(50, 100),
-//     strength: diceRoll(50, 100),
-//     defence: diceRoll(30, 80),
-//     speed: diceRoll(50, 100),
-//     status: "alive",
-//   },
 //   {
 //     icon: "./images/mobs/skeletor.jpg",
 //     avatar: "./images/mobs/skeletor.gif",

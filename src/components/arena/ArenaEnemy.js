@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import arenaStyle from "./arena.module.css";
 import { GiRevolt } from "react-icons/gi";
 import { FaUserShield } from "react-icons/fa";
 import { BiRun } from "react-icons/bi";
+import { Context } from "../../context";
 
 const ArenaEnemy = () => {
+  const context = useContext(Context);
+  console.log(context);
+
   return (
     <div>
       <div className={arenaStyle.arenaEnemyWrapper}>
@@ -14,7 +18,7 @@ const ArenaEnemy = () => {
             src="https://via.placeholder.com/100"
             alt="icon"
           />
-          <h3>NOME</h3>
+          <h3>NAME</h3>
           <progress
             className={arenaStyle.arenaEnemyHealth}
             value="10"

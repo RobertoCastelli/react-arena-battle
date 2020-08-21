@@ -1,5 +1,5 @@
 import React, { useState, createContext } from "react";
-import { champions } from "./data";
+import { champions, enemies } from "./data";
 
 export const Context = createContext();
 
@@ -8,6 +8,7 @@ const ContextProvider = (props) => {
   const [modalState, setModalState] = useState(false);
   const [modal, setModal] = useState(champions);
   const [player, setPlayer] = useState(champions);
+  const [enemy, setEnemy] = useState(enemies);
 
   //--> GET SELECTED CHAMPION OBJECT
   const getChampion = (champName) => {
@@ -20,6 +21,22 @@ const ContextProvider = (props) => {
     const champion = getChampion(champName);
     setPlayer(champion);
   };
+
+  const getEnemy = () => {
+    const aliveEnemies = enemies.filter((enemy) => enemy.status === "alive");
+    const aliveEnemiesLength = aliveEnemies.length;
+    const randomEnemyIndex = diceRoll(0, aliveEnemiesLength);
+    const mob = aliveEnemies[randomEnemyIndex];
+    return mob;
+  };
+
+  const setSelectedEnemy = () => {
+    const mob = getEnemy();
+    setEnemy(mob);
+  };
+
+  //--> DICE ROLL
+  const diceRoll = (min, max) => Math.floor(Math.random * (max - min) + min);
 
   //--> OPEN CHAMPION MODAL CARD
   const openModal = (champName) => {
@@ -46,13 +63,17 @@ const ContextProvider = (props) => {
         player,
         setPlayer,
         setSelectedPlayer,
+        enemy,
+        setEnemy,
+        setSelectedEnemy,
+
         modal,
         setModal,
         modalState,
         setModalState,
-        getChampion,
         openModal,
         closeModal,
+
         showRules,
         restartGame,
       }}
