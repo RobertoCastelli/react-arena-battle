@@ -17,6 +17,7 @@ const ArenaEnemy = () => {
     defence,
     speed,
   } = context.enemy;
+
   return (
     <div>
       <div className={arenaStyle.arenaEnemyWrapper}>

@@ -14,7 +14,7 @@ const Arena = () => {
     <div>
       <div className={arenaStyle.arenaWrapper}>
         <div className={arenaStyle.arenaContent}>
-          {context.btnShowAction ? <BtnActions /> : <BtnInit />}
+          {context.showActionButtons ? <BtnActions /> : <BtnInit />}
           <ArenaImage />
           <div className={arenaStyle.arenaDisplay}>
             <ArenaPlayer />

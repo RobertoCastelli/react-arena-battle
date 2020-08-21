@@ -9,7 +9,7 @@ const ContextProvider = (props) => {
   const [modal, setModal] = useState(champions);
   const [player, setPlayer] = useState(champions);
   const [enemy, setEnemy] = useState(enemies[0]);
-  const [btnShowAction, setBtnShowAction] = useState(false);
+  const [showActionButtons, setShowActionButtons] = useState(false);
 
   //--> GET SELECTED CHAMPION OBJECT
   const getChampion = (champName) => {
@@ -36,7 +36,7 @@ const ContextProvider = (props) => {
   const setSelectedEnemy = () => {
     const enemy = getEnemy();
     setEnemy(enemy);
-    setBtnShowAction(true);
+    setShowActionButtons(true);
   };
 
   //--> OPEN CHAMPION MODAL CARD
@@ -73,8 +73,8 @@ const ContextProvider = (props) => {
         setEnemy,
         setSelectedEnemy,
 
-        btnShowAction,
-        setBtnShowAction,
+        showActionButtons,
+        setShowActionButtons,
 
         modal,
         setModal,
@@ -83,6 +83,7 @@ const ContextProvider = (props) => {
         openModal,
         closeModal,
 
+        diceRoll,
         showRules,
         restartGame,
       }}
