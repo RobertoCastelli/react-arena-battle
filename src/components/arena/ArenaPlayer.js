@@ -1,42 +1,56 @@
-import React from "react";
+import React, { useContext } from "react";
 import arenaStyle from "./arena.module.css";
-import { GiFist } from "react-icons/gi";
+import { Context } from "../../context";
+import { GiRevolt } from "react-icons/gi";
 import { FaUserShield } from "react-icons/fa";
 import { BiRun } from "react-icons/bi";
 
 const ArenaPlayer = () => {
+  const context = useContext(Context);
+  const {
+    icon,
+    name,
+    health,
+    energy,
+    strength,
+    defence,
+    speed,
+  } = context.player[0];
+
   return (
     <div>
       <div className={arenaStyle.arenaPlayerWrapper}>
         <div className={arenaStyle.arenaPlayerContent}>
           <img
             className={arenaStyle.arenaPlayerImage}
-            src="https://via.placeholder.com/100"
+            src={icon}
             alt="avatar"
           />
-          <h3>NOME</h3>
+          <h3>{name}</h3>
           <progress
             className={arenaStyle.arenaPlayerHealth}
-            value="10"
+            value={health}
+            data-label={health}
             max="100"
           ></progress>
           <progress
             className={arenaStyle.arenaPlayerEnergy}
-            value="10"
+            value={energy}
+            data-label={energy}
             max="100"
           ></progress>
           <div className={arenaStyle.arenaPlayerStats}>
             <label htmlFor="fist">
-              <GiFist id="fist" size={30} />
-              10
+              <GiRevolt id="fist" size={30} />
+              {strength}
             </label>
             <label htmlFor="shield">
               <FaUserShield id="shield" size={30} />
-              10
+              {defence}
             </label>
             <label htmlFor="speed">
               <BiRun id="speed" size={30} />
-              10
+              {speed}
             </label>
           </div>
         </div>

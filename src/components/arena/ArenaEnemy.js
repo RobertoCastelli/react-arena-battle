@@ -1,6 +1,6 @@
 import React from "react";
 import arenaStyle from "./arena.module.css";
-import { GiFist } from "react-icons/gi";
+import { GiRevolt } from "react-icons/gi";
 import { FaUserShield } from "react-icons/fa";
 import { BiRun } from "react-icons/bi";
 
@@ -18,16 +18,18 @@ const ArenaEnemy = () => {
           <progress
             className={arenaStyle.arenaEnemyHealth}
             value="10"
+            data-label="10"
             max="100"
           ></progress>
           <progress
             className={arenaStyle.arenaEnemyEnergy}
             value="10"
+            data-label="10"
             max="100"
           ></progress>
           <div className={arenaStyle.arenaEnemyStats}>
             <label htmlFor="fist">
-              <GiFist id="fist" size={30} />
+              <GiRevolt id="fist" size={30} />
               10
             </label>
             <label htmlFor="shield">

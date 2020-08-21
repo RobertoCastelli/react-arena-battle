@@ -7,6 +7,7 @@ const ContextProvider = (props) => {
   //--> GLOBAL STATE
   const [modalState, setModalState] = useState(false);
   const [modal, setModal] = useState(champions);
+  const [player, setPlayer] = useState(champions);
 
   //--> GET SELECTED CHAMPION OBJECT
   const getChampion = (champName) => {
@@ -14,10 +15,17 @@ const ContextProvider = (props) => {
     return champion;
   };
 
+  //--> SETS CHAMPION IN THE ARENA
+  const setSelectedPlayer = (champName) => {
+    const champion = getChampion(champName);
+    setPlayer(champion);
+  };
+
   //--> OPEN CHAMPION MODAL CARD
   const openModal = (champName) => {
     const champion = getChampion(champName);
-    return setModal(champion), setModalState(true);
+    setModal(champion);
+    setModalState(true);
   };
 
   //--> CLOSE CHAMPION MODAL CARD
@@ -30,6 +38,9 @@ const ContextProvider = (props) => {
   return (
     <Context.Provider
       value={{
+        player,
+        setPlayer,
+        setSelectedPlayer,
         modal,
         setModal,
         modalState,

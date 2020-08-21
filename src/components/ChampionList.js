@@ -17,7 +17,10 @@ const ChampionList = () => {
               <ChampionAvatar
                 name={champ.name}
                 src={champ.icon}
-                onClick={() => context.openModal(champ.name)}
+                onClick={() => {
+                  context.openModal(champ.name);
+                  context.setSelectedPlayer(champ.name);
+                }}
               />
             </li>
           );

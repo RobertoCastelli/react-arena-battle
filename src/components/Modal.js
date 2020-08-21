@@ -16,9 +16,17 @@ const Modal = () => {
           <div className={modalStyle.modalBody}>
             <img src={icon} alt="champion-img" />
             <h3>{name}</h3>
-            <p>race: {race}</p>
-            <p>class: {classe}</p>
-            <p>skill: {description}</p>
+            <ul>
+              <li>
+                <b>race:</b> {race}
+              </li>
+              <li>
+                <b>class:</b> {classe}
+              </li>
+              <li>
+                <b>skill:</b> {description}
+              </li>
+            </ul>
           </div>
           <div className={modalStyle.modalButtons}>
             <Link to="/arena">
