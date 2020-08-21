@@ -4,10 +4,16 @@ import thief from "./images/thief.jpg";
 import alchemist from "./images/alchemist.jpg";
 import knight from "./images/knight.jpg";
 
+import mageGif from "./images/mage.gif";
+import barbarianGif from "./images/barbarian.gif";
+import thiefGif from "./images/thief.gif";
+import alchemistGif from "./images/alchemist.gif";
+import knightGif from "./images/knight.gif";
+
 export const champions = [
   {
     icon: barbarian,
-    avatar: "./images/barbarian.gif",
+    avatar: barbarianGif,
     name: "Doss",
     race: "human",
     type: "player",
@@ -22,7 +28,7 @@ export const champions = [
   },
   {
     icon: mage,
-    avatar: "./images/mage.gif",
+    avatar: mageGif,
     name: "Waltz",
     race: "human",
     type: "player",
@@ -37,7 +43,7 @@ export const champions = [
   },
   {
     icon: knight,
-    avatar: "./images/knight.gif",
+    avatar: knightGif,
     name: "Polish",
     race: "human",
     type: "player",
@@ -52,7 +58,7 @@ export const champions = [
   },
   {
     icon: thief,
-    avatar: "./images/thief.gif",
+    avatar: thiefGif,
     name: "Robbo",
     race: "human",
     type: "player",
@@ -67,7 +73,7 @@ export const champions = [
   },
   {
     icon: alchemist,
-    avatar: "./images/alchemist.gif",
+    avatar: alchemistGif,
     name: "Erika",
     race: "human",
     type: "player",

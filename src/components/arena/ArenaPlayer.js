@@ -8,6 +8,7 @@ import { BiRun } from "react-icons/bi";
 const ArenaPlayer = () => {
   const context = useContext(Context);
   const {
+    avatar,
     icon,
     name,
     health,
@@ -22,10 +23,11 @@ const ArenaPlayer = () => {
       <div className={arenaStyle.arenaPlayerWrapper}>
         <div className={arenaStyle.arenaPlayerContent}>
           <img
-            className={arenaStyle.arenaPlayerImage}
-            src={icon}
+            className={arenaStyle.arenaPlayerAvatar}
+            src={avatar}
             alt="avatar"
           />
+          <img className={arenaStyle.arenaPlayerImage} src={icon} alt="icon" />
           <h3>{name}</h3>
           <progress
             className={arenaStyle.arenaPlayerHealth}

@@ -12,7 +12,7 @@ const ArenaEnemy = () => {
           <img
             className={arenaStyle.arenaEnemyImage}
             src="https://via.placeholder.com/100"
-            alt="avatar"
+            alt="icon"
           />
           <h3>NOME</h3>
           <progress
