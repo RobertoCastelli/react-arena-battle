@@ -10,7 +10,12 @@ const BtnActions = () => {
     <div>
       <Title title="Choose your next action" />
       <div className={arenaStyle.arenaButtons}>
-        <button className={arenaStyle.arenaBtnConfirm}>SUMMON DEMON</button>
+        <button
+          onClick={context.setSelectedEnemy}
+          className={arenaStyle.arenaBtnConfirm}
+        >
+          SUMMON DEMON
+        </button>
         <button
           className={arenaStyle.arenaBtnCancel}
           onClick={context.restartGame}

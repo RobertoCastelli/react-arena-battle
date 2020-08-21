@@ -10,6 +10,13 @@ import thiefGif from "./images/thief.gif";
 import alchemistGif from "./images/alchemist.gif";
 import knightGif from "./images/knight.gif";
 
+import ignoto from "./images/ignoto.jpg";
+import ignotoGif from "./images/ignoto.gif";
+import renekaj from "./images/renekaj.jpg";
+import renekajGif from "./images/renekaj.gif";
+import feticcio from "./images/feticcio.jpg";
+import feticcioGif from "./images/feticcio.gif";
+
 export const champions = [
   {
     icon: barbarian,
@@ -90,9 +97,32 @@ export const champions = [
 
 export const enemies = [
   {
-    icon: "./images/mobs/renekaj.jpg",
-    avatar: "./images/mobs/renekaj.gif",
+    icon: ignoto,
+    avatar: ignotoGif,
+    name: "???",
+    energy: "???",
+    health: "???",
+    strength: "???",
+    defence: "???",
+    speed: "???",
+    status: "dead",
+  },
+  {
+    icon: renekaj,
+    avatar: renekajGif,
     name: "Renekaj",
+    type: "enemy",
+    energy: 100,
+    health: 100,
+    strength: 100,
+    defence: 100,
+    speed: 100,
+    status: "alive",
+  },
+  {
+    icon: feticcio,
+    avatar: feticcioGif,
+    name: "Feticcio",
     type: "enemy",
     energy: 100,
     health: 100,

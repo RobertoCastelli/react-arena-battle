@@ -7,42 +7,51 @@ import { Context } from "../../context";
 
 const ArenaEnemy = () => {
   const context = useContext(Context);
-  console.log(context);
-
+  const {
+    avatar,
+    icon,
+    name,
+    health,
+    energy,
+    strength,
+    defence,
+    speed,
+  } = context.enemy;
   return (
     <div>
       <div className={arenaStyle.arenaEnemyWrapper}>
         <div className={arenaStyle.arenaEnemyContent}>
           <img
-            className={arenaStyle.arenaEnemyImage}
-            src="https://via.placeholder.com/100"
-            alt="icon"
+            className={arenaStyle.arenaEnemyAvatar}
+            src={avatar}
+            alt="avatar"
           />
-          <h3>NAME</h3>
+          <img className={arenaStyle.arenaEnemyImage} src={icon} alt="icon" />
+          <h3>{name}</h3>
           <progress
             className={arenaStyle.arenaEnemyHealth}
-            value="10"
-            data-label="10"
+            value={health}
+            data-label={health}
             max="100"
           ></progress>
           <progress
             className={arenaStyle.arenaEnemyEnergy}
-            value="10"
-            data-label="10"
+            value={energy}
+            data-label={energy}
             max="100"
           ></progress>
           <div className={arenaStyle.arenaEnemyStats}>
             <label htmlFor="fist">
               <GiRevolt id="fist" size={30} />
-              10
+              {strength}
             </label>
             <label htmlFor="shield">
               <FaUserShield id="shield" size={30} />
-              10
+              {defence}
             </label>
             <label htmlFor="speed">
               <BiRun id="speed" size={30} />
-              10
+              {speed}
             </label>
           </div>
         </div>

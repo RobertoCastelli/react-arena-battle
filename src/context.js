@@ -8,7 +8,8 @@ const ContextProvider = (props) => {
   const [modalState, setModalState] = useState(false);
   const [modal, setModal] = useState(champions);
   const [player, setPlayer] = useState(champions);
-  const [enemy, setEnemy] = useState(enemies);
+  const [enemy, setEnemy] = useState(enemies[0]);
+  const [btnShowAction, setBtnShowAction] = useState(false);
 
   //--> GET SELECTED CHAMPION OBJECT
   const getChampion = (champName) => {
@@ -22,21 +23,21 @@ const ContextProvider = (props) => {
     setPlayer(champion);
   };
 
+  //--> GET SELECTED ENEMY OBJECT FROM ALIVE ARRAY
   const getEnemy = () => {
     const aliveEnemies = enemies.filter((enemy) => enemy.status === "alive");
     const aliveEnemiesLength = aliveEnemies.length;
     const randomEnemyIndex = diceRoll(0, aliveEnemiesLength);
-    const mob = aliveEnemies[randomEnemyIndex];
-    return mob;
+    const enemy = aliveEnemies[randomEnemyIndex];
+    return enemy;
   };
 
+  //--> SETS ENEMY IN THE ARENA
   const setSelectedEnemy = () => {
-    const mob = getEnemy();
-    setEnemy(mob);
+    const enemy = getEnemy();
+    setEnemy(enemy);
+    setBtnShowAction(true);
   };
-
-  //--> DICE ROLL
-  const diceRoll = (min, max) => Math.floor(Math.random * (max - min) + min);
 
   //--> OPEN CHAMPION MODAL CARD
   const openModal = (champName) => {
@@ -52,9 +53,13 @@ const ContextProvider = (props) => {
   const showRules = () => alert("Survive all 10 levels, with one life only");
 
   //--> RESTART GAME
-  const restartGame = () =>
+  const restartGame = () => {
     window.confirm("You are going to restart the game") &&
-    (window.location.href = "/");
+      (window.location.href = "/");
+  };
+
+  //--> DICE ROLL
+  const diceRoll = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
   //--> RENDER
   return (
@@ -63,9 +68,13 @@ const ContextProvider = (props) => {
         player,
         setPlayer,
         setSelectedPlayer,
+
         enemy,
         setEnemy,
         setSelectedEnemy,
+
+        btnShowAction,
+        setBtnShowAction,
 
         modal,
         setModal,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import arenaStyle from "./arena.module.css";
 import Title from "../Title";
 import { Context } from "../../context";

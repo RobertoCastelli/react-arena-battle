@@ -36,10 +36,9 @@
 
 .arenaPlayerAvatar {
   position: absolute;
-  top: -85%;
-  left: 20%;
-  width: 80%;
-  padding: 1rem;
+  top: -240px;
+  left: 25px;
+  width: 150px;
 }
 
 .arenaPlayerImage {
@@ -111,6 +110,14 @@ progress::-webkit-progress-bar {
   display: flex;
   flex-direction: column;
   text-align: center;
+  position: relative;
+}
+
+.arenaEnemyAvatar {
+  position: absolute;
+  top: -240px;
+  left: -20px;
+  width: 200px;
 }
 
 .arenaEnemyImage {
