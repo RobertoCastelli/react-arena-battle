@@ -34,6 +34,11 @@ const ContextProvider = (props) => {
   //--> SHOW RULES
   const showRules = () => alert("Survive all 10 levels, with one life only");
 
+  //--> RESTART GAME
+  const restartGame = () =>
+    window.confirm("You are going to restart the game") &&
+    (window.location.href = "/");
+
   //--> RENDER
   return (
     <Context.Provider
@@ -49,6 +54,7 @@ const ContextProvider = (props) => {
         openModal,
         closeModal,
         showRules,
+        restartGame,
       }}
     >
       {props.children}

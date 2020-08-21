@@ -7,7 +7,7 @@ const Title = (props) => {
         <span style={{ color: "cadetblue" }}>React</span> Battle Simulator{" "}
       </h1>
       <hr />
-      <p>{props.title}</p>
+      <h3>{props.title}</h3>
     </header>
   );
 };
