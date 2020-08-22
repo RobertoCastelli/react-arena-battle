@@ -7,11 +7,13 @@ const ArenaScore = () => {
       <div className={arenaStyle.arenaScoreWrapper}>
         <div className={arenaStyle.arenaScoreLevel}>
           <h4>LEVEL</h4>
-          <div className={arenaStyle.arenaScoreNumber}>0</div>
+          <div id="arenaScoreNumber" className={arenaStyle.arenaScoreNumber}>
+            0
+          </div>
         </div>
         <div className={arenaStyle.arenaScoreInfo}>
           <h4>INFO</h4>
-          <p className="arenaScoreInfoText">Summon a Demon</p>
+          <p id="arenaScoreInfoText">Summon a Demon</p>
         </div>
         <div className={arenaStyle.arenaScoreLogs}>
           <h4>LOGS</h4>

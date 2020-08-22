@@ -37,6 +37,13 @@ const ContextProvider = (props) => {
     return enemy;
   };
 
+  //--> SHOW ARENA LEVEL SCORE
+  const setLevel = () => {
+    const aliveEnemies = enemies.filter((enemy) => enemy.alive === true);
+    const level = enemies.length - aliveEnemies.length - 1;
+    document.querySelector("#arenaScoreNumber").innerHTML = level;
+  };
+
   //--> SETS ENEMY IN THE ARENA
   const setSelectedEnemy = () => {
     const enemy = getEnemy();
@@ -64,14 +71,14 @@ const ContextProvider = (props) => {
   //--> (+) DAMAGE TO ENEMY
   //--> (-) ENERGY TO PLAYER
   const playerAttack = (enemy, player) => {
-    setEnemyHP((enemy.health -= 40));
+    setEnemyHP((enemy.health -= 10));
     setPlayerEN((player.energy -= 10));
   };
 
   //--> (+) DAMAGE TO PLAYER
   //--> (-) ENERGY TO ENEMY
   const enemyAttack = (enemy, player) => {
-    setPlayerHP((player.health -= 10));
+    setPlayerHP((player.health -= 40));
     setEnemyEN((enemy.energy -= 10));
   };
 
@@ -95,10 +102,14 @@ const ContextProvider = (props) => {
       setInfoText(`${player.name} slays ${enemy.name}`);
       setShowActionButtons(false);
       setEnemyAlive(enemy, false);
-      delay(1500).then(() => setInfoText("Summon a Demon"));
+      setLevel();
+      delay(1500).then(() => setInfoText("Summon a Demon")); //FIXME:
     } else if (player.health <= 0) {
       setPlayerHP((player.health = 0));
       setInfoText(`${enemy.name} slays ${player.name}`);
+      delay(1500).then(() => setInfoText("You are dead")); //FIXME:
+      delay(2000).then(() => restartGame());
+    } else if (player.health <= 0) {
     } else {
       setInfoText("Keep Fighting");
     }
@@ -120,7 +131,7 @@ const ContextProvider = (props) => {
 
   //--> SHOW INFO TEXT
   const setInfoText = (message) =>
-    (document.querySelector(".arenaScoreInfoText").innerHTML = message);
+    (document.querySelector("#arenaScoreInfoText").innerHTML = message);
 
   //--> RESTART GAME
   const restartGame = () =>
