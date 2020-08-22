@@ -6,7 +6,6 @@ import { GiPointySword } from "react-icons/gi";
 import { GiSurroundedShield } from "react-icons/gi";
 import { GiArmBandage } from "react-icons/gi";
 import { GiAchillesHeel } from "react-icons/gi";
-import { FaRegFlag } from "react-icons/fa";
 import { GiBookCover } from "react-icons/gi";
 import { VscDebugRestart } from "react-icons/vsc";
 

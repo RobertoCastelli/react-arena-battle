@@ -29,7 +29,6 @@ export const champions = [
     strength: 80,
     defence: 65,
     speed: 40,
-    status: "alive",
     description: "high health",
   },
   {
@@ -43,7 +42,6 @@ export const champions = [
     strength: 100,
     defence: 55,
     speed: 70,
-    status: "alive",
     description: "high damage",
   },
   {
@@ -57,7 +55,6 @@ export const champions = [
     strength: 60,
     defence: 95,
     speed: 40,
-    status: "alive",
     description: "high defence",
   },
   {
@@ -71,7 +68,6 @@ export const champions = [
     strength: 70,
     defence: 50,
     speed: 100,
-    status: "alive",
     description: "high speed",
   },
   {
@@ -85,7 +81,6 @@ export const champions = [
     strength: 70,
     defence: 70,
     speed: 80,
-    status: "alive",
     description: "high energy",
   },
 ];
@@ -100,7 +95,7 @@ export const enemies = [
     strength: "???",
     defence: "???",
     speed: "???",
-    status: "dead",
+    alive: false,
   },
   {
     icon: renekaj,
@@ -111,7 +106,7 @@ export const enemies = [
     strength: 100,
     defence: 100,
     speed: 100,
-    status: "alive",
+    alive: true,
   },
   {
     icon: feticcio,
@@ -122,7 +117,7 @@ export const enemies = [
     strength: 100,
     defence: 100,
     speed: 100,
-    status: "alive",
+    alive: true,
   },
 ];
 
@@ -137,7 +132,7 @@ export const enemies = [
 //     strength: diceRoll(50, 100),
 //     defence: diceRoll(30, 80),
 //     speed: diceRoll(50, 100),
-//     status: "alive",
+//     alive: true,
 //   },
 //   {
 //     icon: "./images/mobs/nidalkaj.jpg",
@@ -149,7 +144,7 @@ export const enemies = [
 //     strength: diceRoll(50, 100),
 //     defence: diceRoll(30, 80),
 //     speed: diceRoll(50, 100),
-//     status: "alive",
+//     alive: true,
 //   },
 //   {
 //     icon: "./images/mobs/feticcio.jpg",
@@ -161,7 +156,7 @@ export const enemies = [
 //     strength: diceRoll(50, 100),
 //     defence: diceRoll(30, 80),
 //     speed: diceRoll(50, 100),
-//     status: "alive",
+//     alive: true,
 //   },
 //   {
 //     icon: "./images/mobs/zedaj.jpg",
@@ -173,7 +168,7 @@ export const enemies = [
 //     strength: diceRoll(50, 100),
 //     defence: diceRoll(30, 80),
 //     speed: diceRoll(50, 100),
-//     status: "alive",
+//     alive: true,
 //   },
 //   {
 //     icon: "./images/mobs/skeletor.jpg",
@@ -185,7 +180,7 @@ export const enemies = [
 //     strength: diceRoll(50, 100),
 //     defence: diceRoll(30, 80),
 //     speed: diceRoll(50, 100),
-//     status: "alive",
+//     alive: true,
 //   },
 //   {
 //     icon: "./images/mobs/malakaj.jpg",
@@ -197,7 +192,7 @@ export const enemies = [
 //     strength: diceRoll(50, 100),
 //     defence: diceRoll(30, 80),
 //     speed: diceRoll(50, 100),
-//     status: "alive",
+//     alive: true,
 //   },
 //   {
 //     icon: "./images/mobs/skeletor.jpg",
@@ -209,7 +204,7 @@ export const enemies = [
 //     strength: diceRoll(50, 100),
 //     defence: diceRoll(30, 80),
 //     speed: diceRoll(50, 100),
-//     status: "alive",
+//     alive: true,
 //   },
 //   {
 //     icon: "./images/mobs/skeletor.jpg",
@@ -221,7 +216,7 @@ export const enemies = [
 //     strength: diceRoll(50, 100),
 //     defence: diceRoll(30, 80),
 //     speed: diceRoll(50, 100),
-//     status: "alive",
+//     alive: true,
 //   },
 //   {
 //     icon: "./images/mobs/skeletor.jpg",
@@ -233,6 +228,6 @@ export const enemies = [
 //     strength: diceRoll(50, 100),
 //     defence: diceRoll(30, 80),
 //     speed: diceRoll(50, 100),
-//     status: "alive",
+//     alive: true,
 //   },
 // ];
