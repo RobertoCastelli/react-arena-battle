@@ -8,7 +8,11 @@ const ContextProvider = (props) => {
   const [modalState, setModalState] = useState(false);
   const [modal, setModal] = useState(champions);
   const [player, setPlayer] = useState(champions);
+  const [playerHP, setPlayerHP] = useState(0);
+  const [playerEN, setPlayerEN] = useState(0);
   const [enemy, setEnemy] = useState(enemies[0]);
+  const [enemyHP, setEnemyHP] = useState(0);
+  const [enemyEN, setEnemyEN] = useState(0);
   const [showActionButtons, setShowActionButtons] = useState(false);
 
   //--> GET SELECTED CHAMPION OBJECT
@@ -37,6 +41,29 @@ const ContextProvider = (props) => {
     const enemy = getEnemy();
     setEnemy(enemy);
     setShowActionButtons(true);
+    setInfoText("Choose an action");
+  };
+
+  //--> PLAYER ATTACK SEQUENCE
+  const playerAttackSequence = (enemy, player) => {
+    playerAttack(enemy, player);
+    delay(2000).then(() => enemyAttack(enemy, player));
+  };
+
+  //--> (+) DAMAGE TO ENEMY
+  //--> (-) ENERGY TO PLAYER
+  const playerAttack = (enemy, player) => {
+    //TODO:
+    setEnemyHP((enemy.health -= 10));
+    setPlayerEN((player.energy -= 10));
+  };
+
+  //--> (+) DAMAGE TO PLAYER
+  //--> (-) ENERGY TO ENEMY
+  const enemyAttack = (enemy, player) => {
+    //TODO:
+    setEnemyEN((enemy.energy -= 10));
+    setPlayerHP((player.health -= 10));
   };
 
   //--> OPEN CHAMPION MODAL CARD
@@ -50,13 +77,20 @@ const ContextProvider = (props) => {
   const closeModal = () => setModalState(false);
 
   //--> SHOW RULES
-  const showRules = () => alert("Survive all 10 levels, with one life only");
+  const showRules = () =>
+    alert("Survive all 10 levels, with one life only at disposition");
+
+  //--> SHOW INFO TEXT
+  const setInfoText = (message) =>
+    (document.querySelector(".arenaScoreInfoText").innerHTML = message);
 
   //--> RESTART GAME
-  const restartGame = () => {
+  const restartGame = () =>
     window.confirm("You are going to restart the game") &&
-      (window.location.href = "/");
-  };
+    (window.location.href = "/");
+
+  //--> DELAY
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   //--> DICE ROLL
   const diceRoll = (min, max) => Math.floor(Math.random() * (max - min) + min);
@@ -67,10 +101,19 @@ const ContextProvider = (props) => {
       value={{
         player,
         setPlayer,
+        playerHP,
+        setPlayerHP,
+        playerEN,
+        setPlayerEN,
         setSelectedPlayer,
+        playerAttackSequence,
 
         enemy,
         setEnemy,
+        enemyHP,
+        setEnemyHP,
+        enemyEN,
+        setEnemyEN,
         setSelectedEnemy,
 
         showActionButtons,

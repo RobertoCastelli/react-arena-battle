@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import arenaStyle from "./arena.module.css";
-import { GiRevolt } from "react-icons/gi";
+import { GiBiceps } from "react-icons/gi";
 import { FaUserShield } from "react-icons/fa";
 import { BiRun } from "react-icons/bi";
 import { Context } from "../../context";
@@ -43,7 +43,7 @@ const ArenaEnemy = () => {
           ></progress>
           <div className={arenaStyle.arenaEnemyStats}>
             <label htmlFor="fist">
-              <GiRevolt id="fist" size={30} />
+              <GiBiceps id="fist" size={30} />
               {strength}
             </label>
             <label htmlFor="shield">

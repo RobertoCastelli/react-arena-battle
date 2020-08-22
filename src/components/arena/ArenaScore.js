@@ -11,7 +11,7 @@ const ArenaScore = () => {
         </div>
         <div className={arenaStyle.arenaScoreInfo}>
           <h4>INFO</h4>
-          <p>Summon a Demon</p>
+          <p className="arenaScoreInfoText">Summon a Demon</p>
         </div>
         <div className={arenaStyle.arenaScoreLogs}>
           <h4>LOGS</h4>
