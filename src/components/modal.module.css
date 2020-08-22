@@ -55,22 +55,22 @@
 }
 
 .modalBtnConfirm {
-  transition: all 0.5s ease;
+  transition: all 0.4s ease;
   border: 0.3rem outset #999999;
   background-color: #666666;
-  color: white;
-  padding: 1rem;
+  color: antiquewhite;
+  padding: 0.5rem;
   width: 100px;
   outline: none;
   text-transform: uppercase;
 }
 
 .modalBtnCancel {
-  transition: all 0.5s ease;
+  transition: all 0.4s ease;
   border: 0.3rem outset rgb(185, 91, 91);
   background-color: brown;
-  color: white;
-  padding: 1rem;
+  color: antiquewhite;
+  padding: 0.5rem;
   width: 100px;
   outline: none;
   text-transform: uppercase;
@@ -80,7 +80,6 @@
   cursor: pointer;
   border: 0.3rem outset #666666;
   background-color: #333333;
-  color: white;
 }
 
 .modalBtnCancel:hover {
@@ -88,5 +87,4 @@
 
   border: 0.3rem outset cadetblue;
   background-color: teal;
-  color: white;
 }
