@@ -47,7 +47,14 @@ const ContextProvider = (props) => {
   //--> PLAYER ATTACK SEQUENCE
   const playerAttackSequence = (enemy, player) => {
     playerAttack(enemy, player);
-    delay(2000).then(() => enemyAttack(enemy, player));
+    checkDeath(enemy, player);
+    enemy.status !== "dead" &&
+      delay(1000).then(() => enemyAttackSequence(enemy, player));
+  };
+
+  const enemyAttackSequence = (enemy, player) => {
+    enemyAttack(enemy, player);
+    checkDeath(enemy, player);
   };
 
   //--> (+) DAMAGE TO ENEMY
@@ -62,8 +69,18 @@ const ContextProvider = (props) => {
   //--> (-) ENERGY TO ENEMY
   const enemyAttack = (enemy, player) => {
     //TODO:
+    setPlayerHP((player.health -= 30));
     setEnemyEN((enemy.energy -= 10));
-    setPlayerHP((player.health -= 10));
+  };
+
+  const checkDeath = (enemy, player) => {
+    if (enemy.health <= 0) {
+      setInfoText(`${player.name} slays ${enemy.name}`);
+    } else if (player.health <= 0) {
+      setInfoText(`${enemy.name} slays ${player.name}`);
+    } else {
+      setInfoText("Keep Fighting");
+    }
   };
 
   //--> OPEN CHAMPION MODAL CARD

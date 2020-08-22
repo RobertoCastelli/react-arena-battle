@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import arenaStyle from "./arena.module.css";
 import { GiBiceps } from "react-icons/gi";
-import { FaUserShield } from "react-icons/fa";
-import { BiRun } from "react-icons/bi";
+import { GiLegArmor } from "react-icons/gi";
 import { Context } from "../../context";
+import { GiBlackKnightHelm } from "react-icons/gi";
 
 const ArenaEnemy = () => {
   const context = useContext(Context);
@@ -47,11 +47,11 @@ const ArenaEnemy = () => {
               {strength}
             </label>
             <label htmlFor="shield">
-              <FaUserShield id="shield" size={30} />
+              <GiBlackKnightHelm id="shield" size={30} />
               {defence}
             </label>
             <label htmlFor="speed">
-              <BiRun id="speed" size={30} />
+              <GiLegArmor id="speed" size={30} />
               {speed}
             </label>
           </div>
