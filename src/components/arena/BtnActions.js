@@ -14,10 +14,12 @@ const BtnActions = () => {
   const {
     enemy,
     player,
-    playerAttackSequence,
-    lastResort,
     showRules,
     restartGame,
+    playerAttackSequence,
+    playerLastResort,
+    activePlayerShield,
+    playerRest,
   } = context;
   return (
     <div>
@@ -29,15 +31,21 @@ const BtnActions = () => {
         >
           <GiPointySword size={30} />
         </button>
-        <button className={arenaStyle.arenaBtnConfirm}>
+        <button
+          className={arenaStyle.arenaBtnConfirm}
+          onClick={() => activePlayerShield(enemy, player[0])}
+        >
           <GiSurroundedShield size={30} />
         </button>
-        <button className={arenaStyle.arenaBtnConfirm}>
+        <button
+          className={arenaStyle.arenaBtnConfirm}
+          onClick={() => playerRest(enemy, player[0])}
+        >
           <GiArmBandage size={30} />
         </button>
         <button
           className={arenaStyle.arenaBtnConfirm}
-          onClick={() => lastResort(enemy, player[0])}
+          onClick={() => playerLastResort(enemy, player[0])}
         >
           <GiAchillesHeel size={30} />
         </button>

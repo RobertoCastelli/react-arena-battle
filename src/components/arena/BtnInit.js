@@ -8,7 +8,7 @@ import { VscDebugRestart } from "react-icons/vsc";
 
 const BtnActions = () => {
   const context = useContext(Context);
-  const { setSelectedEnemy, btnDisabled, showRules, restartGame } = context;
+  const { setSelectedEnemy, showRules, restartGame } = context;
 
   return (
     <div>
@@ -17,7 +17,6 @@ const BtnActions = () => {
         <button
           className={arenaStyle.arenaBtnConfirm}
           onClick={setSelectedEnemy}
-          disabled={btnDisabled}
         >
           <GiBullyMinion size={30} />
         </button>

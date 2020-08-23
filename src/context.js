@@ -10,11 +10,12 @@ const ContextProvider = (props) => {
   const [player, setPlayer] = useState(champions);
   const [playerHP, setPlayerHP] = useState(0);
   const [playerEN, setPlayerEN] = useState(0);
+  const [playerDEF, setPlayerDEF] = useState(0);
+  const [playerDefended, setPlayerDefended] = useState(false);
   const [enemy, setEnemy] = useState(enemies[0]);
   const [enemyHP, setEnemyHP] = useState(0);
   const [enemyEN, setEnemyEN] = useState(0);
   const [showActionButtons, setShowActionButtons] = useState(false);
-  const [btnDisabled, setBtnDisabled] = useState(false);
   const [level, setLevel] = useState(0);
   const [score, setScore] = useState(0);
   const [playerLog, setPlayerLog] = useState("...");
@@ -72,6 +73,8 @@ const ContextProvider = (props) => {
     setEnemyHP((enemy.health -= damage));
     //--> CONSUME PLAYER ENERGY
     setPlayerEN((player.energy -= damage));
+    //--> SET SHIELD AVAILABLE AGAIN
+    deactivatePlayerShield(player);
     //--> SHOW LOGS TEXT
     setPlayerLog(`${player.name} hits for: ${damage}`);
   };
@@ -87,16 +90,44 @@ const ContextProvider = (props) => {
     setEnemyLog(`${enemy.name} hits for: ${damage}`);
   };
 
-  //--> PLAYER LAST CHANCE ATTACK (ACHILLES HEEL)
-  const lastResort = (enemy, player) => {
-    //FIXME: if players dies score is +1, should be +0
+  //--> PLAYER LASTRESORT SEQUENCE (ACHILLES HEEL) FIXME: if players dies score is +1, should be +0
+  const playerLastResort = (enemy, player) => {
     diceRoll(1, 6) <= 3
       ? setPlayerHP((player.health = 0))
       : setEnemyHP((enemy.health = 0));
     checkDeath(enemy, player);
+    setPlayerDefended(false);
   };
 
-  //--> SPAWN NEXT ENEMY
+  //--> PLAYER SHIELD SEQUENCE FIXME:
+  const activePlayerShield = (enemy, player) => {
+    if (!playerDefended) {
+      setPlayerDEF((player.defence += 1000));
+      setPlayerDefended(true);
+      setInfoText(`${player.name} in defence stance`);
+      delay(1500).then(() => enemyAttackSequence(enemy, player));
+    }
+  };
+
+  //--> RESET SHIELD SEQUENCE FIXME:
+  const deactivatePlayerShield = (player) => {
+    if (playerDefended) {
+      setPlayerDefended(false);
+      setPlayerDEF((player.defence -= 1000));
+    }
+  };
+
+  //--> PLAYER REST STANCE FIXME:
+  const playerRest = (enemy, player) => {
+    const rest = diceRoll(10, 50);
+    setPlayerHP((player.health += rest));
+    setPlayerEN((player.energy += rest));
+    setPlayerDEF((player.defence -= 30));
+    setInfoText(`${player.name} heals for: ${rest}`);
+    delay(1500).then(() => enemyAttackSequence(enemy, player));
+  };
+
+  //--> SPAWN NEXT ENEMY FIXME:
   const enemyDefaultSpawn = () => {
     const aliveEnemies = enemies.filter((enemy) => enemy.alive === true);
     const aliveEnemiesLength = aliveEnemies.length;
@@ -149,9 +180,9 @@ const ContextProvider = (props) => {
   const getLevel = () => {
     const aliveEnemies = enemies.filter((enemy) => enemy.alive === true);
     const level = enemies.length - aliveEnemies.length;
-    setLevel(level);
     //TODO: add a better score calculation
     setScore(`Your SCORE is: ${level}`);
+    setLevel(level);
   };
 
   //--> NO NEGATIVE ENERGY NUMBERS
@@ -205,10 +236,16 @@ const ContextProvider = (props) => {
         setPlayerHP,
         playerEN,
         setPlayerEN,
+        playerDEF,
+        setPlayerDEF,
         playerLog,
         setPlayerLog,
+
+        playerRest,
         setSelectedPlayer,
         playerAttackSequence,
+        playerLastResort,
+        activePlayerShield,
 
         enemy,
         setEnemy,
@@ -220,8 +257,6 @@ const ContextProvider = (props) => {
         setEnemyLog,
         setSelectedEnemy,
 
-        showActionButtons,
-        setShowActionButtons,
         modal,
         setModal,
         modalState,
@@ -230,10 +265,9 @@ const ContextProvider = (props) => {
         closeModal,
         score,
         level,
-        lastResort,
 
-        btnDisabled,
-        setBtnDisabled,
+        showActionButtons,
+        setShowActionButtons,
 
         diceRoll,
         showRules,
