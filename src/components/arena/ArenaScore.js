@@ -4,7 +4,7 @@ import { Context } from "../../context";
 
 const ArenaScore = () => {
   const context = useContext(Context);
-  const { score, level } = context;
+  const { score, level, playerLog, enemyLog } = context;
 
   return (
     <div>
@@ -22,8 +22,8 @@ const ArenaScore = () => {
         </div>
         <div className={arenaStyle.arenaScoreLogs}>
           <h4>LOGS</h4>
-          <div>player hit</div>
-          <div>enemy hit</div>
+          <div>{playerLog}</div>
+          <div>{enemyLog}</div>
         </div>
       </div>
     </div>

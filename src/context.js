@@ -17,6 +17,8 @@ const ContextProvider = (props) => {
   const [btnDisabled, setBtnDisabled] = useState(false);
   const [level, setLevel] = useState(0);
   const [score, setScore] = useState(0);
+  const [playerLog, setPlayerLog] = useState("...");
+  const [enemyLog, setEnemyLog] = useState("...");
 
   //--> GET SELECTED CHAMPION
   const getChampion = (champName) => {
@@ -65,31 +67,25 @@ const ContextProvider = (props) => {
 
   //--> PLAYER ATTACK EFFECT
   const playerAttack = (enemy, player) => {
+    const damage = diceRoll(0, 70);
     //--> CONSUME ENEMY HEALTH
-    setEnemyHP((enemy.health -= 50));
+    setEnemyHP((enemy.health -= damage));
     //--> CONSUME PLAYER ENERGY
-    setPlayerEN((player.energy -= 10));
+    setPlayerEN((player.energy -= damage));
+    //--> SHOW LOGS TEXT
+    setPlayerLog(`${player.name} hits for: ${damage}`);
   };
 
   //--> ENEMY ATTACK EFFECT
   const enemyAttack = (enemy, player) => {
+    const damage = diceRoll(0, 70);
     //--> CONSUME PLAYER HEALTH
-    setPlayerHP((player.health -= 10));
+    setPlayerHP((player.health -= damage));
     //--> CONSUME ENEMY ENERGY
-    setEnemyEN((enemy.energy -= 10));
+    setEnemyEN((enemy.energy -= damage));
+    //--> SHOW LOGS TEXT
+    setEnemyLog(`${enemy.name} hits for: ${damage}`);
   };
-
-  //--> NO NEGATIVE ENERGY NUMBERS
-  const checkEnergyLessThanZero = (enemy, player) => {
-    if (enemy.energy <= 0) {
-      setEnemyEN((enemy.energy = 0));
-    } else if (player.energy <= 0) {
-      setPlayerEN((player.energy = 0));
-    }
-  };
-
-  //--> SET ENEMY STATE: ALIVE OR DEAD
-  const setEnemyAlive = (enemy, status) => (enemy.alive = status);
 
   //--> SPAWN NEXT ENEMY
   const enemyDefaultSpawn = () => {
@@ -105,19 +101,6 @@ const ContextProvider = (props) => {
     }
   };
 
-  //--> PLAYER WIN SEQUENCE TODO: add a better mode
-  const playerWinSequence = () => {
-    setInfoText("You WIN!");
-    delay(1000).then(() => document.querySelector("dialog").showModal());
-    delay(4000).then(() => (window.location.href = "/"));
-  };
-
-  //--> PLAYER DEATH SEQUENCE TODO: add a better ending
-  const playerDeathSequence = () => {
-    delay(1500).then(() => setInfoText("You are dead"));
-    delay(2500).then(() => restartGame());
-  };
-
   //--> CHECK DEATH SEQUENCE
   const checkDeath = (enemy, player) => {
     if (enemy.health <= 0) {
@@ -128,17 +111,32 @@ const ContextProvider = (props) => {
       //--> AFTER ENEMY DEATH --> SPAWN NEXT ENEMY
       delay(2000).then(() => enemyDefaultSpawn());
     } else if (player.health <= 0) {
+      getLevel();
       setPlayerHP((player.health = 0));
       setInfoText(`${enemy.name} slays ${player.name}`);
       //--> SET PLAYER DEATH SEQUENCE
-      delay(2000).then(() => playerDeathSequence());
+      playerDeathSequence();
     } else {
       //--> DISPLAY DEFAULT TEXT ON SCORE SCREEN
       setInfoText("Keep Fighting");
     }
   };
 
-  //--> SHOW ARENA LEVEL SCORE
+  //--> PLAYER WIN SEQUENCE TODO: add a better mode
+  const playerWinSequence = () => {
+    setInfoText("You WIN!");
+    delay(1500).then(() => document.querySelector("dialog").showModal());
+    delay(4000).then(() => (window.location.href = "/"));
+  };
+
+  //--> PLAYER DEATH SEQUENCE TODO: add a better ending
+  const playerDeathSequence = () => {
+    setInfoText("You are dead");
+    delay(1500).then(() => document.querySelector("dialog").showModal());
+    delay(4000).then(() => (window.location.href = "/"));
+  };
+
+  //--> SHOW ARENA LEVEL & SCORE
   const getLevel = () => {
     const aliveEnemies = enemies.filter((enemy) => enemy.alive === true);
     const level = enemies.length - aliveEnemies.length;
@@ -146,6 +144,18 @@ const ContextProvider = (props) => {
     //TODO: add a better score calculation
     setScore(`Your SCORE is: ${level}`);
   };
+
+  //--> NO NEGATIVE ENERGY NUMBERS
+  const checkEnergyLessThanZero = (enemy, player) => {
+    if (enemy.energy <= 0) {
+      setEnemyEN((enemy.energy = 0));
+    } else if (player.energy <= 0) {
+      setPlayerEN((player.energy = 0));
+    }
+  };
+
+  //--> SET ENEMY STATE: ALIVE OR DEAD
+  const setEnemyAlive = (enemy, status) => (enemy.alive = status);
 
   //--> OPEN CHAMPION MODAL CARD
   const openModal = (champName) => {
@@ -186,6 +196,8 @@ const ContextProvider = (props) => {
         setPlayerHP,
         playerEN,
         setPlayerEN,
+        playerLog,
+        setPlayerLog,
         setSelectedPlayer,
         playerAttackSequence,
 
@@ -195,6 +207,8 @@ const ContextProvider = (props) => {
         setEnemyHP,
         enemyEN,
         setEnemyEN,
+        enemyLog,
+        setEnemyLog,
         setSelectedEnemy,
 
         showActionButtons,
