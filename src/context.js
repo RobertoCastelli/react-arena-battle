@@ -87,6 +87,15 @@ const ContextProvider = (props) => {
     setEnemyLog(`${enemy.name} hits for: ${damage}`);
   };
 
+  //--> PLAYER LAST CHANCE ATTACK (ACHILLES HEEL)
+  const lastResort = (enemy, player) => {
+    //FIXME: if players dies score is +1, should be +0
+    diceRoll(1, 6) <= 3
+      ? setPlayerHP((player.health = 0))
+      : setEnemyHP((enemy.health = 0));
+    checkDeath(enemy, player);
+  };
+
   //--> SPAWN NEXT ENEMY
   const enemyDefaultSpawn = () => {
     const aliveEnemies = enemies.filter((enemy) => enemy.alive === true);
@@ -221,6 +230,7 @@ const ContextProvider = (props) => {
         closeModal,
         score,
         level,
+        lastResort,
 
         btnDisabled,
         setBtnDisabled,

@@ -11,14 +11,21 @@ import { VscDebugRestart } from "react-icons/vsc";
 
 const BtnActions = () => {
   const context = useContext(Context);
-  const { enemy, player } = context;
+  const {
+    enemy,
+    player,
+    playerAttackSequence,
+    lastResort,
+    showRules,
+    restartGame,
+  } = context;
   return (
     <div>
       <Title title="Action panel" />
       <div className={arenaStyle.arenaButtons}>
         <button
-          onClick={() => context.playerAttackSequence(enemy, player[0])}
           className={arenaStyle.arenaBtnConfirm}
+          onClick={() => playerAttackSequence(enemy, player[0])}
         >
           <GiPointySword size={30} />
         </button>
@@ -28,19 +35,16 @@ const BtnActions = () => {
         <button className={arenaStyle.arenaBtnConfirm}>
           <GiArmBandage size={30} />
         </button>
-        <button className={arenaStyle.arenaBtnConfirm}>
+        <button
+          className={arenaStyle.arenaBtnConfirm}
+          onClick={() => lastResort(enemy, player[0])}
+        >
           <GiAchillesHeel size={30} />
         </button>
-        <button
-          className={arenaStyle.arenaBtnCancel}
-          onClick={context.restartGame}
-        >
+        <button className={arenaStyle.arenaBtnCancel} onClick={restartGame}>
           <VscDebugRestart size={30} />
         </button>
-        <button
-          className={arenaStyle.arenaBtnCancel}
-          onClick={context.showRules}
-        >
+        <button className={arenaStyle.arenaBtnCancel} onClick={showRules}>
           <GiBookCover size={30} />
         </button>
       </div>
