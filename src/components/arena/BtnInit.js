@@ -15,8 +15,8 @@ const BtnActions = () => {
       <Title title="Choose your next action" />
       <div className={arenaStyle.arenaButtons}>
         <button
-          onClick={setSelectedEnemy}
           className={arenaStyle.arenaBtnConfirm}
+          onClick={setSelectedEnemy}
           disabled={btnDisabled}
         >
           <GiBullyMinion size={30} />

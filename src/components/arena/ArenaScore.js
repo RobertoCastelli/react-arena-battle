@@ -4,7 +4,7 @@ import { Context } from "../../context";
 
 const ArenaScore = () => {
   const context = useContext(Context);
-  const { score } = context;
+  const { score, level } = context;
 
   return (
     <div>
@@ -13,7 +13,7 @@ const ArenaScore = () => {
         <div className={arenaStyle.arenaScoreLevel}>
           <h4>LEVEL</h4>
           <div id="arenaScoreNumber" className={arenaStyle.arenaScoreNumber}>
-            0
+            {level}
           </div>
         </div>
         <div className={arenaStyle.arenaScoreInfo}>

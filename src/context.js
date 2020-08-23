@@ -15,6 +15,7 @@ const ContextProvider = (props) => {
   const [enemyEN, setEnemyEN] = useState(0);
   const [showActionButtons, setShowActionButtons] = useState(false);
   const [btnDisabled, setBtnDisabled] = useState(false);
+  const [level, setLevel] = useState(0);
   const [score, setScore] = useState(0);
 
   //--> GET SELECTED CHAMPION
@@ -49,17 +50,17 @@ const ContextProvider = (props) => {
   //--> PLAYER ATTACK SEQUENCE
   const playerAttackSequence = (enemy, player) => {
     playerAttack(enemy, player);
-    checkHealth(enemy, player);
-    checkEnergy(enemy, player);
-    enemy.alive !== false &&
+    checkDeath(enemy, player);
+    checkEnergyLessThanZero(enemy, player);
+    enemy.alive === true &&
       delay(1000).then(() => enemyAttackSequence(enemy, player));
   };
 
   //--> ENEMY ATTACK SEQUENCE
   const enemyAttackSequence = (enemy, player) => {
     enemyAttack(enemy, player);
-    checkHealth(enemy, player);
-    checkEnergy(enemy, player);
+    checkDeath(enemy, player);
+    checkEnergyLessThanZero(enemy, player);
   };
 
   //--> PLAYER ATTACK EFFECT
@@ -79,7 +80,7 @@ const ContextProvider = (props) => {
   };
 
   //--> NO NEGATIVE ENERGY NUMBERS
-  const checkEnergy = (enemy, player) => {
+  const checkEnergyLessThanZero = (enemy, player) => {
     if (enemy.energy <= 0) {
       setEnemyEN((enemy.energy = 0));
     } else if (player.energy <= 0) {
@@ -99,31 +100,38 @@ const ContextProvider = (props) => {
       setEnemy(enemies[0]);
       setShowActionButtons(false);
     } else {
-      //--> IF NO MORE ENEMIES --> PLAYER WIN
-      setInfoText("You WIN!"); //TODO: add a function sequence
-      delay(1500).then(document.querySelector("dialog").showModal());
+      //--> IF NO MORE ENEMIES --> PLAYER WIN --> SHOW SCORE
+      playerWinSequence();
     }
   };
 
+  //--> PLAYER WIN SEQUENCE TODO: add a better mode
+  const playerWinSequence = () => {
+    setInfoText("You WIN!");
+    delay(1000).then(() => document.querySelector("dialog").showModal());
+    delay(4000).then(() => (window.location.href = "/"));
+  };
+
+  //--> PLAYER DEATH SEQUENCE TODO: add a better ending
   const playerDeathSequence = () => {
-    delay(1500).then(() => setInfoText("You are dead")); //TODO: add a better ending
+    delay(1500).then(() => setInfoText("You are dead"));
     delay(2500).then(() => restartGame());
   };
 
-  //--> CHECK HEALTH SEQUENCE
-  const checkHealth = (enemy, player) => {
+  //--> CHECK DEATH SEQUENCE
+  const checkDeath = (enemy, player) => {
     if (enemy.health <= 0) {
       getLevel();
       setEnemyHP((enemy.health = 0));
       setInfoText(`${player.name} slays ${enemy.name}`);
       setEnemyAlive(enemy, false);
-      //--> SET ENEMY DEATH SEQUENCE
-      delay(1500).then(() => enemyDefaultSpawn());
+      //--> AFTER ENEMY DEATH --> SPAWN NEXT ENEMY
+      delay(2000).then(() => enemyDefaultSpawn());
     } else if (player.health <= 0) {
       setPlayerHP((player.health = 0));
       setInfoText(`${enemy.name} slays ${player.name}`);
       //--> SET PLAYER DEATH SEQUENCE
-      delay(1500).then(() => playerDeathSequence());
+      delay(2000).then(() => playerDeathSequence());
     } else {
       //--> DISPLAY DEFAULT TEXT ON SCORE SCREEN
       setInfoText("Keep Fighting");
@@ -134,8 +142,9 @@ const ContextProvider = (props) => {
   const getLevel = () => {
     const aliveEnemies = enemies.filter((enemy) => enemy.alive === true);
     const level = enemies.length - aliveEnemies.length;
-    document.querySelector("#arenaScoreNumber").innerHTML = level;
-    setScore(`You have reaced arena level: ${level} `);
+    setLevel(level);
+    //TODO: add a better score calculation
+    setScore(`Your SCORE is: ${level}`);
   };
 
   //--> OPEN CHAMPION MODAL CARD
@@ -197,6 +206,7 @@ const ContextProvider = (props) => {
         openModal,
         closeModal,
         score,
+        level,
 
         btnDisabled,
         setBtnDisabled,
