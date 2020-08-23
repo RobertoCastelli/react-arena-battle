@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import arenaStyle from "./arena.module.css";
+import { Context } from "../../context";
 
 const ArenaScore = () => {
+  const context = useContext(Context);
+  const { score } = context;
+
   return (
     <div>
       <div className={arenaStyle.arenaScoreWrapper}>
+        <dialog>{score}</dialog>
         <div className={arenaStyle.arenaScoreLevel}>
           <h4>LEVEL</h4>
           <div id="arenaScoreNumber" className={arenaStyle.arenaScoreNumber}>
