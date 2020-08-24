@@ -39,6 +39,9 @@
   top: -240px;
   left: 25px;
   width: 150px;
+  animation-name: appear;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
 }
 
 .arenaPlayerImage {
@@ -118,6 +121,8 @@ progress::-webkit-progress-bar {
   top: -240px;
   left: -20px;
   width: 200px;
+  animation-name: appear;
+  animation-duration: 3s;
 }
 
 .arenaEnemyImage {
@@ -233,4 +238,18 @@ progress::-webkit-progress-bar {
   cursor: pointer;
   border: 0.3rem outset cadetblue;
   background-color: teal;
+}
+
+.arenaEnemyAppear {
+  animation-name: appear;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
+}
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

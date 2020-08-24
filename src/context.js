@@ -96,7 +96,7 @@ const ContextProvider = (props) => {
       ? setPlayerHP((player.health = 0))
       : setEnemyHP((enemy.health = 0));
     checkDeath(enemy, player);
-    setPlayerDefended(false);
+    deactivatePlayerShield(player);
   };
 
   //--> PLAYER SHIELD SEQUENCE FIXME:
@@ -123,6 +123,7 @@ const ContextProvider = (props) => {
     setPlayerHP((player.health += rest));
     setPlayerEN((player.energy += rest));
     setPlayerDEF((player.defence -= 30));
+    deactivatePlayerShield(player);
     setInfoText(`${player.name} heals for: ${rest}`);
     delay(1500).then(() => enemyAttackSequence(enemy, player));
   };
