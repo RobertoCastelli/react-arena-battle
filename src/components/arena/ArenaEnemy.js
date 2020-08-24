@@ -23,6 +23,7 @@ const ArenaEnemy = () => {
       <div className={arenaStyle.arenaEnemyWrapper}>
         <div className={arenaStyle.arenaEnemyContent}>
           <img
+            id="enemyAvatar"
             className={arenaStyle.arenaEnemyAvatar}
             src={avatar}
             alt="avatar"

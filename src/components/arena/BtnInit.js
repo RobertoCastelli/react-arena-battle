@@ -8,7 +8,7 @@ import { VscDebugRestart } from "react-icons/vsc";
 
 const BtnActions = () => {
   const context = useContext(Context);
-  const { enemy, setSelectedEnemy, showRules, restartGame } = context;
+  const { setSelectedEnemy, showRules, restartGame } = context;
 
   return (
     <div>

@@ -92,7 +92,7 @@ const ContextProvider = (props) => {
 
   //--> PLAYER LASTRESORT SEQUENCE (ACHILLES HEEL) FIXME: if players dies score is +1, should be +0
   const playerLastResort = (enemy, player) => {
-    diceRoll(1, 6) <= 3
+    diceRoll(1, 6) <= 1 // <-<< EDIT THIS
       ? setPlayerHP((player.health = 0))
       : setEnemyHP((enemy.health = 0));
     checkDeath(enemy, player);

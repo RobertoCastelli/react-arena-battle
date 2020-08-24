@@ -30,3 +30,14 @@ function App() {
 }
 
 export default App;
+
+/**
+ * FIXME:
+ * add CSS animation to hit
+ * add CSS animation appear on every spawn enemy
+ * update death sequence
+ * update win sequence
+ * add sounds
+ * calibrate DMG DEF REST
+ *
+ */
