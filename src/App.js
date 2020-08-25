@@ -39,5 +39,7 @@ export default App;
  * update win sequence
  * add sounds
  * calibrate DMG DEF REST
+ * add no def < 0
+ * add no hit with 0 energy
  *
  */

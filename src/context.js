@@ -20,6 +20,7 @@ const ContextProvider = (props) => {
   const [score, setScore] = useState(0);
   const [playerLog, setPlayerLog] = useState("...");
   const [enemyLog, setEnemyLog] = useState("...");
+  const [damage, setDamage] = useState(0);
 
   //--> GET SELECTED CHAMPION
   const getChampion = (champName) => {
@@ -68,7 +69,8 @@ const ContextProvider = (props) => {
 
   //--> PLAYER ATTACK EFFECT
   const playerAttack = (enemy, player) => {
-    const damage = diceRoll(0, 70);
+    //--> CHECK ENERGY BEFORE HIT
+
     //--> CONSUME ENEMY HEALTH
     setEnemyHP((enemy.health -= damage));
     //--> CONSUME PLAYER ENERGY
@@ -81,13 +83,20 @@ const ContextProvider = (props) => {
 
   //--> ENEMY ATTACK EFFECT
   const enemyAttack = (enemy, player) => {
-    const damage = diceRoll(0, 70);
+    //--> CHECK ENERGY BEFORE HIT
+
     //--> CONSUME PLAYER HEALTH
     setPlayerHP((player.health -= damage));
     //--> CONSUME ENEMY ENERGY
     setEnemyEN((enemy.energy -= damage));
     //--> SHOW LOGS TEXT
     setEnemyLog(`${enemy.name} hits for: ${damage}`);
+  };
+
+  //--> DAMAGE FORMULA
+  const damageFormula = () => {
+    let damageFormula = diceRoll(0, 70);
+    return damageFormula;
   };
 
   //--> PLAYER LASTRESORT SEQUENCE (ACHILLES HEEL) FIXME: if players dies score is +1, should be +0
