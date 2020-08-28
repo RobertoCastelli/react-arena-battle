@@ -31,7 +31,7 @@
 .modalBody img {
   width: 130px;
   border: 0.3rem inset bisque;
-  margin: auto;
+  margin: 1rem auto;
 }
 
 .modalBody ul {

@@ -20,7 +20,6 @@ const ContextProvider = (props) => {
   const [score, setScore] = useState(0);
   const [playerLog, setPlayerLog] = useState("...");
   const [enemyLog, setEnemyLog] = useState("...");
-  const [damage, setDamage] = useState(0);
 
   //--> GET SELECTED CHAMPION
   const getChampion = (champName) => {
@@ -69,8 +68,7 @@ const ContextProvider = (props) => {
 
   //--> PLAYER ATTACK EFFECT
   const playerAttack = (enemy, player) => {
-    //--> CHECK ENERGY BEFORE HIT
-
+    let damage = 10;
     //--> CONSUME ENEMY HEALTH
     setEnemyHP((enemy.health -= damage));
     //--> CONSUME PLAYER ENERGY
@@ -83,8 +81,7 @@ const ContextProvider = (props) => {
 
   //--> ENEMY ATTACK EFFECT
   const enemyAttack = (enemy, player) => {
-    //--> CHECK ENERGY BEFORE HIT
-
+    let damage = 10;
     //--> CONSUME PLAYER HEALTH
     setPlayerHP((player.health -= damage));
     //--> CONSUME ENEMY ENERGY
@@ -93,15 +90,9 @@ const ContextProvider = (props) => {
     setEnemyLog(`${enemy.name} hits for: ${damage}`);
   };
 
-  //--> DAMAGE FORMULA
-  const damageFormula = () => {
-    let damageFormula = diceRoll(0, 70);
-    return damageFormula;
-  };
-
   //--> PLAYER LASTRESORT SEQUENCE (ACHILLES HEEL) FIXME: if players dies score is +1, should be +0
   const playerLastResort = (enemy, player) => {
-    diceRoll(1, 6) <= 1 // <-<< EDIT THIS
+    diceRoll(1, 6) <= 1 // <-<< EDIT THIS TO CHANGE SORT
       ? setPlayerHP((player.health = 0))
       : setEnemyHP((enemy.health = 0));
     checkDeath(enemy, player);
@@ -219,7 +210,7 @@ const ContextProvider = (props) => {
 
   //--> SHOW RULES
   const showRules = () =>
-    alert("Survive all 10 levels, with one life only at disposition");
+    alert("Survive all 10 levels, with one life only at disposition [NdR]");
 
   //--> SHOW INFO TEXT
   const setInfoText = (message) =>
