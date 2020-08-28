@@ -110,6 +110,11 @@ progress::-webkit-progress-bar {
   transition: width 1s ease-in-out;
 }
 
+.arenaPlayerMove {
+  animation-name: move-right;
+  animation-duration: 1s;
+}
+
 /*********/
 /* ENEMY */
 /*********/
@@ -255,5 +260,17 @@ progress::-webkit-progress-bar {
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes move-right {
+  0% {
+    transform: translate(0);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  0% {
+    transform: translateX(0);
   }
 }
