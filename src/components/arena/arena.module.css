@@ -6,12 +6,10 @@
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0.2rem;
   grid-template-areas: "player score enemy";
-  margin-top: 0.1rem;
 }
 .arenaPlayer {
   grid-area: player;
 }
-
 .arenaScore {
   grid-area: score;
 }
@@ -24,17 +22,25 @@
   border: 0.5rem ridge bisque;
 }
 
-/**********/
-/* PLAYER */
-/**********/
-.arenaPlayerWrapper {
-  min-height: 50vh;
-}
-
-.arenaPlayerContent {
+/***************/
+/* PLAYER ENEMY*/
+/***************/
+.arenaPlayerWrapper,
+.arenaEnemyWrapper {
+  background-image: url("../../images/bg-stats.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
+  min-height: 40vh;
   text-align: center;
+  border: 0.5rem ridge bisque;
+  color: #333333;
+}
+
+.arenaPlayerContent,
+.arenaEnemyContent {
+  flex-grow: 1;
   position: relative;
 }
 
@@ -48,87 +54,6 @@
   animation-iteration-count: 1;
 }
 
-.arenaPlayerImage {
-  width: 80px;
-  height: 80px;
-  margin: 1rem auto 0;
-  border: 0.3rem inset bisque;
-}
-
-.arenaPlayerStats {
-  display: flex;
-}
-
-.arenaPlayerStats label {
-  margin: 1rem;
-}
-
-.arenaPlayerWrapper,
-.arenaEnemyWrapper {
-  background-image: url("../../images/bg-stats.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  border: 0.5rem outset bisque;
-  height: 30vh;
-  color: #333333;
-}
-
-label {
-  font-weight: bold;
-}
-
-progress {
-  position: relative;
-  -webkit-appearance: none;
-  width: 90%;
-  height: 0.5rem;
-  margin: 0.5rem auto;
-}
-
-progress:before {
-  content: attr(data-label);
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%);
-  top: -20%;
-  color: #333333;
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-progress::-webkit-progress-bar {
-  background: lightgray;
-  height: 1rem;
-}
-.arenaPlayerHealth::-webkit-progress-value {
-  background: tomato;
-  transition: width 1s ease-in-out;
-}
-
-.arenaPlayerEnergy::-webkit-progress-value {
-  background: orange;
-  transition: width 1s ease-in-out;
-}
-
-.arenaPlayerMove {
-  animation-name: move-right;
-  animation-duration: 1s;
-}
-
-/*********/
-/* ENEMY */
-/*********/
-.arenaEnemyWrapper {
-  min-height: 50vh;
-}
-
-.arenaEnemyContent {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  position: relative;
-}
-
 .arenaEnemyAvatar {
   position: absolute;
   top: -240px;
@@ -139,6 +64,7 @@ progress::-webkit-progress-bar {
   animation-iteration-count: 1;
 }
 
+.arenaPlayerImage,
 .arenaEnemyImage {
   width: 80px;
   height: 80px;
@@ -146,19 +72,54 @@ progress::-webkit-progress-bar {
   border: 0.3rem inset bisque;
 }
 
+.arenaPlayerStats,
 .arenaEnemyStats {
   display: flex;
 }
 
+.arenaPlayerStats label,
 .arenaEnemyStats label {
-  margin: 1rem;
+  margin: 0.8rem;
 }
 
+.arenaPlayerMove {
+  animation-name: move-right;
+  animation-duration: 1s;
+}
+
+label {
+  font-weight: bold;
+}
+
+progress {
+  position: relative;
+  -webkit-appearance: none;
+  width: 90%;
+  height: 15px;
+  margin: 0.2rem auto;
+}
+
+progress:before {
+  content: attr(data-label);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #333333;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+progress::-webkit-progress-bar {
+  background: lightgray;
+}
+
+.arenaPlayerHealth::-webkit-progress-value,
 .arenaEnemyHealth::-webkit-progress-value {
   background: tomato;
   transition: width 1s ease-in-out;
 }
 
+.arenaPlayerEnergy::-webkit-progress-value,
 .arenaEnemyEnergy::-webkit-progress-value {
   background: orange;
   transition: width 1s ease-in-out;
@@ -172,7 +133,7 @@ progress::-webkit-progress-bar {
   grid-template-columns: 1fr;
   grid-template-rows: repeat(3, auto);
   gap: 0.2rem;
-  height: 50vh;
+  height: 40vh;
   grid-template-areas:
     "level"
     "info"
@@ -208,6 +169,10 @@ progress::-webkit-progress-bar {
   margin: auto;
   padding: 0.1rem 0.5rem;
   border: 0.2rem inset bisque;
+}
+
+.arenaScoreLogs div {
+  margin: 0.5rem 0;
 }
 
 /***********/

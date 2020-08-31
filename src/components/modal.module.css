@@ -29,18 +29,21 @@
 }
 
 .modalBody img {
-  width: 130px;
+  width: 120px;
+  height: 120px;
   border: 0.3rem inset bisque;
-  margin: 1rem auto;
+  margin: auto;
 }
 
 .modalBody ul {
   display: block;
-  margin: 0;
+  margin: 1rem;
+  padding: 0;
 }
+
 .modalBody li {
-  list-style: circle;
-  margin: 0.5rem 0;
+  list-style: none;
+  margin: 0.5rem;
 }
 
 .modalBody h3 {

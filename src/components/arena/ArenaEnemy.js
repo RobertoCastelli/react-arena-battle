@@ -42,20 +42,20 @@ const ArenaEnemy = () => {
             data-label={energy}
             max="100"
           ></progress>
-          <div className={arenaStyle.arenaEnemyStats}>
-            <label htmlFor="fist">
-              <GiBiceps id="fist" size={30} />
-              {strength}
-            </label>
-            <label htmlFor="shield">
-              <GiBlackKnightHelm id="shield" size={30} />
-              {defence}
-            </label>
-            <label htmlFor="speed">
-              <GiLegArmor id="speed" size={30} />
-              {speed}
-            </label>
-          </div>
+        </div>
+        <div className={arenaStyle.arenaEnemyStats}>
+          <label htmlFor="fist">
+            <GiBiceps id="fist" size={30} />
+            {strength}
+          </label>
+          <label htmlFor="shield">
+            <GiBlackKnightHelm id="shield" size={30} />
+            {defence}
+          </label>
+          <label htmlFor="speed">
+            <GiLegArmor id="speed" size={30} />
+            {speed}
+          </label>
         </div>
       </div>
     </div>

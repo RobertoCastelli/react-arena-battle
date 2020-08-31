@@ -142,6 +142,95 @@ const ContextProvider = (props) => {
     }
   };
 
+  // ****************
+  // CHECK INITIATIVE
+  // ----------------
+  // const checkInitiative = (enemy, player) => {
+  //   let playerSpeed = player.speed + diceRoll(1, 20);
+  //   let enemySpeed = enemy.speed + diceRoll(1, 20);
+  //   console.log(`initiative player:${playerSpeed} enemy:${enemySpeed}`);
+  //   if (playerSpeed > enemySpeed) {
+  //     setInfoText("You move first");
+  //   } else {
+  //     setInfoText("Enemy moves first");
+  //     enemyAttackSequence(enemy, player);
+  //   }
+  // };
+
+  // ******************
+  // DAMAGE CALCULATION
+  // ------------------
+  // const damageCalculation = (attacker, defender) => {
+  //   let strength = attacker.strength + diceRoll(0, 10);
+  //   let defence = defender.defence + diceRoll(0, 10);
+  //   let defenceMod = strength * (defence / 100);
+  //   let baseDamage = Math.floor((strength - defenceMod) * energyMod(attacker));
+  //   // DO NOT ACCEPT NEGATIVE VALUES
+  //   console.log(`baseDMG: ${baseDamage}`);
+  //   return baseDamage <= 0 ? (damage = 0) : (damage = baseDamage * mod);
+  // };
+
+  // const energyMod = (attacker) => {
+  //   let energy = attacker.energy;
+  //   if (energy >= 60) {
+  //     energyModifier = 1;
+  //   } else if (energy >= 5 && energy <= 59) {
+  //     energyModifier = 0.5;
+  //   } else {
+  //     energyModifier = 0;
+  //   }
+  //   console.log(`energyMod: ${energyModifier}`);
+  //   return energyModifier;
+  // };
+
+  // // ********************
+  // // CHAMP SPEED MODIFIER
+  // // --------------------
+  // const speedMod = (champion) => {
+  //   if (champion[0].speed >= 80) {
+  //     speedModifier = 4;
+  //   } else if (champion.speed >= 60 && champion.speed <= 79) {
+  //     speedModifier = 2;
+  //   } else {
+  //     speedModifier = 0;
+  //   }
+  //   console.log(`speedMod: ${speedModifier}`);
+  //   return speedModifier;
+  // };
+
+  // // *******************
+  // // HIT CHANCE MODIFIER
+  // // -------------------
+  // const hitChance = (champion) => {
+  //   let hitChance = diceRoll(0, 20) + speedMod(champion);
+  //   switch (hitChance) {
+  //     // MISS
+  //     case 0:
+  //     case 1:
+  //     case 2:
+  //     case 3:
+  //     case 4:
+  //     case 5:
+  //       mod = 0;
+  //       break;
+  //     // CRITICAL
+  //     case 20:
+  //     case 21:
+  //     case 22:
+  //     case 23:
+  //     case 24:
+  //     case 25:
+  //       mod = 2;
+  //       break;
+  //     // NORMAL
+  //     default:
+  //       mod = 1;
+  //       break;
+  //   }
+  //   console.log(`hitchance: ${hitChance}`);
+  //   return mod;
+  // };
+
   //--> CHECK DEATH SEQUENCE
   const checkDeath = (enemy, player) => {
     if (enemy.health <= 0) {

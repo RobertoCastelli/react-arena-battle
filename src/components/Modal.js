@@ -14,8 +14,8 @@ const Modal = () => {
       <div className={modalStyle.modalWrapper}>
         <div className={modalStyle.modalContent}>
           <div className={modalStyle.modalBody}>
-            <img src={icon} alt="champion-img" />
             <h3>{name}</h3>
+            <img src={icon} alt="champion-img" />
             <ul>
               <li>
                 <b>race:</b> {race}

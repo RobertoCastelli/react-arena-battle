@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./App.css";
 
 import ChampionList from "./components/ChampionList";
 import Arena from "./components/arena/Arena";

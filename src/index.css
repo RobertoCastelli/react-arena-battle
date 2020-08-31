@@ -22,6 +22,41 @@ code {
   box-sizing: border-box;
 }
 
-img {
-  width: 50px;
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: auto;
+  max-width: 700px;
+  padding: 0 1rem;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 0 1rem;
+}
+
+header,
+footer {
+  color: antiquewhite;
+  text-shadow: 0.3rem 0.3rem 0.3rem #333333;
+  text-align: center;
+}
+
+h3,
+h4 {
+  margin: 0.8rem;
 }
