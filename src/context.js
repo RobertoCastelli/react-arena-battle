@@ -1,5 +1,6 @@
 import React, { useState, createContext } from "react";
-import { champions, enemies } from "./data";
+import { champions, enemies, sounds } from "./data";
+import useSound from "use-sound";
 
 export const Context = createContext();
 
@@ -20,6 +21,9 @@ const ContextProvider = (props) => {
   const [score, setScore] = useState(0);
   const [playerLog, setPlayerLog] = useState("...");
   const [enemyLog, setEnemyLog] = useState("...");
+
+  const sound = sounds[3];
+  const [playSound] = useSound(sound);
 
   //--> GET SELECTED PLAYER
   const getPlayer = (champName) => {
@@ -68,6 +72,7 @@ const ContextProvider = (props) => {
 
   //--> PLAYER ATTACK EFFECT
   const playerAttack = (enemy, player) => {
+    playSound();
     let damage = damageCalculation(player, enemy);
     //--> CONSUME ENEMY HEALTH
     setEnemyHP((enemy.health -= damage));
@@ -127,7 +132,7 @@ const ContextProvider = (props) => {
 
   //--> PLAYER LASTRESORT SEQUENCE (ACHILLES HEEL)
   const playerLastResort = (enemy, player) => {
-    diceRoll(1, 6) <= 1 // <-<< EDIT THIS TO CHANGE DEATH FATE
+    diceRoll(1, 6) <= 3 // <-<< EDIT THIS TO CHANGE DEATH SENTENCE
       ? setPlayerHP((player.health = 0))
       : setEnemyHP((enemy.health = 0));
     checkDeath(enemy, player);
@@ -178,10 +183,8 @@ const ContextProvider = (props) => {
     }
   };
 
-  // ****************
-  // CHECK INITIATIVE
-  // ----------------
-  // const checkInitiative = (enemy, player) => {
+  // --> CHECK INITIATIVE
+  // const checkInitiative = () => {
   //   let playerSpeed = player.speed + diceRoll(1, 20);
   //   let enemySpeed = enemy.speed + diceRoll(1, 20);
   //   console.log(`initiative player:${playerSpeed} enemy:${enemySpeed}`);

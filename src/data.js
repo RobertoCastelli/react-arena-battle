@@ -17,6 +17,20 @@ import renekajGif from "./images/renekaj.gif";
 import feticcio from "./images/feticcio.jpg";
 import feticcioGif from "./images/feticcio.gif";
 
+import attack from "./sounds/attack.mp3";
+import fight from "./sounds/fight.mp3";
+import monsterdraw from "./sounds/monsterdraw.mp3";
+import punch from "./sounds/punch.mp3";
+import punch1 from "./sounds/punch1.mp3";
+import punch2 from "./sounds/punch2.mp3";
+import punches from "./sounds/punches.mp3";
+import slap from "./sounds/slap.mp3";
+import special from "./sounds/special.mp3";
+import sword from "./sounds/sword.mp3";
+import sword1 from "./sounds/sword1.mp3";
+import swordraw from "./sounds/swordraw.mp3";
+import throwknife from "./sounds/throwknife.mp3";
+
 export const champions = [
   {
     icon: barbarian,
@@ -82,6 +96,24 @@ export const champions = [
     defence: 70,
     speed: 80,
     description: "high energy",
+  },
+];
+
+export const sounds = [
+  {
+    attack,
+    fight,
+    monsterdraw,
+    punch,
+    punch1,
+    punch2,
+    punches,
+    slap,
+    special,
+    sword,
+    sword1,
+    swordraw,
+    throwknife,
   },
 ];
 
