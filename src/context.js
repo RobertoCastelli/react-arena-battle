@@ -21,15 +21,15 @@ const ContextProvider = (props) => {
   const [playerLog, setPlayerLog] = useState("...");
   const [enemyLog, setEnemyLog] = useState("...");
 
-  //--> GET SELECTED CHAMPION
-  const getChampion = (champName) => {
+  //--> GET SELECTED PLAYER
+  const getPlayer = (champName) => {
     const champion = champions.filter((champ) => champ.name === champName);
     return champion;
   };
 
-  //--> SETS SELECTED CHAMPION IN THE ARENA
+  //--> SETS SELECTED PLAYER IN THE ARENA
   const setSelectedPlayer = (champName) => {
-    const champion = getChampion(champName);
+    const champion = getPlayer(champName);
     setPlayer(champion);
   };
 
@@ -91,25 +91,43 @@ const ContextProvider = (props) => {
         break;
       default:
         // DEFAUTL LOG
-        setPlayerLog(`${player.name} has no energy`);
+        setPlayerLog(`${player.name} is WEAK!`);
         break;
     }
   };
 
   //--> ENEMY ATTACK EFFECT
   const enemyAttack = (enemy, player) => {
-    let damage = 10;
+    let damage = damageCalculation(enemy, player);
     //--> CONSUME PLAYER HEALTH
     setPlayerHP((player.health -= damage));
     //--> CONSUME ENEMY ENERGY
     setEnemyEN((enemy.energy -= damage));
     //--> SHOW LOGS TEXT
+    switch (hitChanceModifier) {
+      case 0:
+        // MISS LOG
+        setEnemyLog(`${enemy.name} MISSES!`);
+        break;
+      case 1:
+        // NORMAL LOG
+        setEnemyLog(`${enemy.name} hits for: ${damage}`);
+        break;
+      case 2:
+        // CRIT LOG
+        setEnemyLog(`${enemy.name} CRITS! for: ${damage}`);
+        break;
+      default:
+        // DEFAUTL LOG
+        setEnemyLog(`${enemy.name} is WEAK!`);
+        break;
+    }
     setEnemyLog(`${enemy.name} hits for: ${damage}`);
   };
 
-  //--> PLAYER LASTRESORT SEQUENCE (ACHILLES HEEL) FIXME: if players dies score is +1, should be +0
+  //--> PLAYER LASTRESORT SEQUENCE (ACHILLES HEEL)
   const playerLastResort = (enemy, player) => {
-    diceRoll(1, 6) <= 1 // <-<< EDIT THIS TO CHANGE SORT
+    diceRoll(1, 6) <= 1 // <-<< EDIT THIS TO CHANGE DEATH FATE
       ? setPlayerHP((player.health = 0))
       : setEnemyHP((enemy.health = 0));
     checkDeath(enemy, player);
@@ -139,7 +157,8 @@ const ContextProvider = (props) => {
     const rest = diceRoll(10, 50);
     setPlayerHP((player.health += rest));
     setPlayerEN((player.energy += rest));
-    setPlayerDEF((player.defence -= 30));
+    setPlayerDEF((player.defence -= 30)); // FIXME: <-<< It doesn't reset after the turn ends
+    checkDefenceLessThanZero(player);
     deactivatePlayerShield(player);
     setInfoText(`${player.name} heals for: ${rest}`);
     delay(1500).then(() => enemyAttackSequence(enemy, player));
@@ -303,12 +322,16 @@ const ContextProvider = (props) => {
     }
   };
 
+  // --> NO NEGATIVE DEFENCE NUMBERS
+  const checkDefenceLessThanZero = (player) =>
+    player.defence <= 0 && setPlayerDEF((player.defence = 0));
+
   //--> SET ENEMY STATE: ALIVE OR DEAD
   const setEnemyAlive = (enemy, status) => (enemy.alive = status);
 
   //--> OPEN CHAMPION MODAL CARD
   const openModal = (champName) => {
-    const champion = getChampion(champName);
+    const champion = getPlayer(champName);
     setModal(champion);
     setModalState(true);
   };
