@@ -68,7 +68,7 @@ const ContextProvider = (props) => {
 
   //--> PLAYER ATTACK EFFECT
   const playerAttack = (enemy, player) => {
-    let damage = 10;
+    let damage = damageCalculation(player, enemy);
     //--> CONSUME ENEMY HEALTH
     setEnemyHP((enemy.health -= damage));
     //--> CONSUME PLAYER ENERGY
@@ -76,7 +76,24 @@ const ContextProvider = (props) => {
     //--> SET SHIELD AVAILABLE AGAIN
     deactivatePlayerShield(player);
     //--> SHOW LOGS TEXT
-    setPlayerLog(`${player.name} hits for: ${damage}`);
+    switch (hitChanceModifier) {
+      case 0:
+        // MISS LOG
+        setPlayerLog(`${player.name} MISSES!`);
+        break;
+      case 1:
+        // NORMAL LOG
+        setPlayerLog(`${player.name} hits for: ${damage}`);
+        break;
+      case 2:
+        // CRIT LOG
+        setPlayerLog(`${player.name} CRITS! for: ${damage}`);
+        break;
+      default:
+        // DEFAUTL LOG
+        setPlayerLog(`${player.name} has no energy`);
+        break;
+    }
   };
 
   //--> ENEMY ATTACK EFFECT
@@ -157,79 +174,81 @@ const ContextProvider = (props) => {
   //   }
   // };
 
-  // ******************
-  // DAMAGE CALCULATION
-  // ------------------
-  // const damageCalculation = (attacker, defender) => {
-  //   let strength = attacker.strength + diceRoll(0, 10);
-  //   let defence = defender.defence + diceRoll(0, 10);
-  //   let defenceMod = strength * (defence / 100);
-  //   let baseDamage = Math.floor((strength - defenceMod) * energyMod(attacker));
-  //   // DO NOT ACCEPT NEGATIVE VALUES
-  //   console.log(`baseDMG: ${baseDamage}`);
-  //   return baseDamage <= 0 ? (damage = 0) : (damage = baseDamage * mod);
-  // };
+  // --> DAMAGE CALCULATION
+  const damageCalculation = (attacker, defender) => {
+    let strength = attacker.strength + diceRoll(0, 10);
+    let defence = defender.defence + diceRoll(0, 10);
+    let defenceMod = strength * (defence / 100);
+    // BASE DAMAGE CALC WITH DEFENCE & ENERGY MODIFIER
+    let baseDamage = Math.floor((strength - defenceMod) * energyMod(attacker));
+    console.log(`baseDMG: ${baseDamage}`); // <-<< Delete this
+    // DO NOT ACCEPT NEGATIVE VALUES
+    return baseDamage <= 0
+      ? (baseDamage = 0)
+      : baseDamage * hitChanceMod(attacker);
+  };
 
-  // const energyMod = (attacker) => {
-  //   let energy = attacker.energy;
-  //   if (energy >= 60) {
-  //     energyModifier = 1;
-  //   } else if (energy >= 5 && energy <= 59) {
-  //     energyModifier = 0.5;
-  //   } else {
-  //     energyModifier = 0;
-  //   }
-  //   console.log(`energyMod: ${energyModifier}`);
-  //   return energyModifier;
-  // };
+  // --> ENERGY MODIFIER
+  let energyModifier;
+  const energyMod = (attacker) => {
+    let energy = attacker.energy;
+    if (energy >= 60) {
+      energyModifier = 1;
+    } else if (energy >= 5 && energy <= 59) {
+      energyModifier = 0.5;
+    } else {
+      energyModifier = 0;
+    }
+    console.log(`energyMod: ${energyModifier}`); // <-<< Delete this
+    return energyModifier;
+  };
 
-  // // ********************
-  // // CHAMP SPEED MODIFIER
-  // // --------------------
-  // const speedMod = (champion) => {
-  //   if (champion[0].speed >= 80) {
-  //     speedModifier = 4;
-  //   } else if (champion.speed >= 60 && champion.speed <= 79) {
-  //     speedModifier = 2;
-  //   } else {
-  //     speedModifier = 0;
-  //   }
-  //   console.log(`speedMod: ${speedModifier}`);
-  //   return speedModifier;
-  // };
+  // --> SPEED MODIFIER
+  let speedModifier;
+  const speedMod = (attacker) => {
+    if (attacker.speed >= 80) {
+      speedModifier = 4;
+    } else if (attacker.speed >= 60 && attacker.speed <= 79) {
+      speedModifier = 2;
+    } else {
+      speedModifier = 0;
+    }
+    console.log(`speedMod: ${speedModifier}`); // <-<< Delete this
+    return speedModifier;
+  };
 
-  // // *******************
-  // // HIT CHANCE MODIFIER
-  // // -------------------
-  // const hitChance = (champion) => {
-  //   let hitChance = diceRoll(0, 20) + speedMod(champion);
-  //   switch (hitChance) {
-  //     // MISS
-  //     case 0:
-  //     case 1:
-  //     case 2:
-  //     case 3:
-  //     case 4:
-  //     case 5:
-  //       mod = 0;
-  //       break;
-  //     // CRITICAL
-  //     case 20:
-  //     case 21:
-  //     case 22:
-  //     case 23:
-  //     case 24:
-  //     case 25:
-  //       mod = 2;
-  //       break;
-  //     // NORMAL
-  //     default:
-  //       mod = 1;
-  //       break;
-  //   }
-  //   console.log(`hitchance: ${hitChance}`);
-  //   return mod;
-  // };
+  // --> HIT CHANCE MODIFIER
+  let hitChanceModifier;
+  const hitChanceMod = (attacker) => {
+    // HIT CHANCE BASED ON PLAYER/ENEMY SPEED
+    let hitChance = diceRoll(0, 20) + speedMod(attacker);
+    switch (hitChance) {
+      // MISS
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+        hitChanceModifier = 0;
+        break;
+      // CRITICAL
+      case 20:
+      case 21:
+      case 22:
+      case 23:
+      case 24:
+      case 25:
+        hitChanceModifier = 2;
+        break;
+      // NORMAL
+      default:
+        hitChanceModifier = 1;
+        break;
+    }
+    console.log(`hitchance: ${hitChanceModifier}`); // <-<< Delete this
+    return hitChanceModifier;
+  };
 
   //--> CHECK DEATH SEQUENCE
   const checkDeath = (enemy, player) => {
@@ -299,7 +318,9 @@ const ContextProvider = (props) => {
 
   //--> SHOW RULES
   const showRules = () =>
-    alert("Survive all 10 levels, with one life only at disposition [NdR]");
+    alert(
+      "SUMMON A DEMON: survive all 10 levels, with one life only at disposition. \n\nDEFENCE: decreasing your damage income, but you won't be able to attack in this turn. \n\nHEAL: restore your energy and health, but your defences will drasticly lower and you won't be able to attack in this turn. \n\nLAST RESORT: one shot your enemy, or be one shotted. \n\n[NdRoberto]"
+    );
 
   //--> SHOW INFO TEXT
   const setInfoText = (message) =>
