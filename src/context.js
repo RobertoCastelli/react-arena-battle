@@ -22,9 +22,6 @@ const ContextProvider = (props) => {
   const [playerLog, setPlayerLog] = useState("...");
   const [enemyLog, setEnemyLog] = useState("...");
 
-  const sound = sounds[3];
-  const [playSound] = useSound(sound);
-
   //--> GET SELECTED PLAYER
   const getPlayer = (champName) => {
     const champion = champions.filter((champ) => champ.name === champName);
@@ -72,7 +69,6 @@ const ContextProvider = (props) => {
 
   //--> PLAYER ATTACK EFFECT
   const playerAttack = (enemy, player) => {
-    playSound();
     let damage = damageCalculation(player, enemy);
     //--> CONSUME ENEMY HEALTH
     setEnemyHP((enemy.health -= damage));
