@@ -13,24 +13,28 @@ const ContextProvider = (props) => {
   const [playerEN, setPlayerEN] = useState(0);
   const [playerDEF, setPlayerDEF] = useState(0);
   const [playerDefended, setPlayerDefended] = useState(false);
+  const [playerMoved, setPlayerMoved] = useState(false);
+  const [playerAppeared, setPlayerAppeared] = useState(false);
+  const [playerLog, setPlayerLog] = useState("...");
   const [enemy, setEnemy] = useState(enemies[0]);
   const [enemyHP, setEnemyHP] = useState(0);
   const [enemyEN, setEnemyEN] = useState(0);
+  const [enemyMoved, setEnemyMoved] = useState(false);
+  const [enemyLog, setEnemyLog] = useState("...");
   const [showActionButtons, setShowActionButtons] = useState(false);
   const [level, setLevel] = useState(0);
   const [score, setScore] = useState(0);
-  const [playerLog, setPlayerLog] = useState("...");
-  const [enemyLog, setEnemyLog] = useState("...");
 
-  // --> SOUNDS
+  //--> SOUNDS
   const [playPunch] = useSound(sounds[0].punch);
   const [playSlap] = useSound(sounds[0].slap);
   const [playLastResort] = useSound(sounds[0].special);
   const [playShield] = useSound(sounds[0].sword);
   const [playSummon] = useSound(sounds[0].monsterdraw);
   const [playRest] = useSound(sounds[0].throwknife);
+  const [playFight] = useSound(sounds[0].fight, { volume: 0.05 });
 
-  // --> GET SELECTED PLAYER
+  //--> GET SELECTED PLAYER
   const getPlayer = (champName) => {
     const champion = champions.filter((champ) => champ.name === champName);
     return champion;
@@ -38,6 +42,7 @@ const ContextProvider = (props) => {
 
   //--> SETS SELECTED PLAYER IN THE ARENA
   const setSelectedPlayer = (champName) => {
+    playFight();
     const champion = getPlayer(champName);
     setPlayer(champion);
   };
@@ -60,33 +65,23 @@ const ContextProvider = (props) => {
     setInfoText("Choose an action");
   };
 
-  //--> PLAYER ATTACK SEQUENCE
-  const playerAttackSequence = (enemy, player) => {
-    playerAttack(enemy, player);
-    checkDeath(enemy, player);
-    checkEnergyLessThanZero(enemy, player);
-    enemy.alive === true &&
-      delay(1000).then(() => enemyAttackSequence(enemy, player));
-  };
-
-  //--> ENEMY ATTACK SEQUENCE
-  const enemyAttackSequence = (enemy, player) => {
-    enemyAttack(enemy, player);
-    checkDeath(enemy, player);
-    checkEnergyLessThanZero(enemy, player);
-  };
-
   //--> PLAYER ATTACK EFFECT
   const playerAttack = (enemy, player) => {
+    // ANIMATION SEQUENCE
+    setEnemyMoved(false);
+    setPlayerMoved(true);
+    setPlayerAppeared(true);
+    // PLAY SOUND
     playPunch();
+    // CALCULATE DAMAGE
     let damage = damageCalculation(player, enemy);
-    //--> CONSUME ENEMY HEALTH
+    // CONSUME ENEMY HEALTH
     setEnemyHP((enemy.health -= damage));
-    //--> CONSUME PLAYER ENERGY
+    // CONSUME PLAYER ENERGY
     setPlayerEN((player.energy -= damage));
-    //--> SET SHIELD AVAILABLE AGAIN
+    // SET SHIELD AVAILABLE AGAIN
     deactivatePlayerShield(player);
-    //--> SHOW LOGS TEXT
+    // SHOW LOGS TEXT
     switch (hitChanceModifier) {
       case 0:
         // MISS LOG
@@ -109,13 +104,18 @@ const ContextProvider = (props) => {
 
   //--> ENEMY ATTACK EFFECT
   const enemyAttack = (enemy, player) => {
+    // ANIMATION SEQUENCE
+    setEnemyMoved(true);
+    setPlayerMoved(false);
+    // PLAY SOUND
     playSlap();
+    // CALCULATE DAMAGE
     let damage = damageCalculation(enemy, player);
-    //--> CONSUME PLAYER HEALTH
+    // CONSUME PLAYER HEALTH
     setPlayerHP((player.health -= damage));
-    //--> CONSUME ENEMY ENERGY
+    // CONSUME ENEMY ENERGY
     setEnemyEN((enemy.energy -= damage));
-    //--> SHOW LOGS TEXT
+    // SHOW LOGS TEXT
     switch (hitChanceModifier) {
       case 0:
         // MISS LOG
@@ -135,6 +135,22 @@ const ContextProvider = (props) => {
         break;
     }
     setEnemyLog(`${enemy.name} hits for: ${damage}`);
+  };
+
+  //--> PLAYER ATTACK SEQUENCE
+  const playerAttackSequence = (enemy, player) => {
+    playerAttack(enemy, player);
+    checkDeath(enemy, player);
+    checkEnergyLessThanZero(enemy, player);
+    enemy.alive === true &&
+      delay(1500).then(() => enemyAttackSequence(enemy, player));
+  };
+
+  //--> ENEMY ATTACK SEQUENCE
+  const enemyAttackSequence = (enemy, player) => {
+    enemyAttack(enemy, player);
+    checkDeath(enemy, player);
+    checkEnergyLessThanZero(enemy, player);
   };
 
   //--> PLAYER LASTRESORT SEQUENCE (ACHILLES HEEL)
@@ -188,7 +204,7 @@ const ContextProvider = (props) => {
       setEnemy(enemies[0]);
       setShowActionButtons(false);
     } else {
-      //--> IF NO MORE ENEMIES --> PLAYER WIN --> SHOW SCORE
+      // IF NO MORE ENEMIES --> PLAYER WIN --> SHOW SCORE
       playerWinSequence();
     }
   };
@@ -220,7 +236,7 @@ const ContextProvider = (props) => {
       : baseDamage * hitChanceMod(attacker);
   };
 
-  // --> ENERGY MODIFIER
+  //--> ENERGY MODIFIER
   let energyModifier;
   const energyMod = (attacker) => {
     let energy = attacker.energy;
@@ -235,7 +251,7 @@ const ContextProvider = (props) => {
     return energyModifier;
   };
 
-  // --> SPEED MODIFIER
+  //--> SPEED MODIFIER
   let speedModifier;
   const speedMod = (attacker) => {
     if (attacker.speed >= 80) {
@@ -249,7 +265,7 @@ const ContextProvider = (props) => {
     return speedModifier;
   };
 
-  // --> HIT CHANCE MODIFIER
+  //--> HIT CHANCE MODIFIER
   let hitChanceModifier;
   const hitChanceMod = (attacker) => {
     // HIT CHANCE BASED ON PLAYER/ENEMY SPEED
@@ -289,16 +305,16 @@ const ContextProvider = (props) => {
       setEnemyHP((enemy.health = 0));
       setInfoText(`${player.name} slays ${enemy.name}`);
       setEnemyAlive(enemy, false);
-      //--> AFTER ENEMY DEATH --> SPAWN NEXT ENEMY
+      // AFTER ENEMY DEATH --> SPAWN NEXT ENEMY
       delay(2000).then(() => enemyDefaultSpawn());
     } else if (player.health <= 0) {
       getLevel();
       setPlayerHP((player.health = 0));
       setInfoText(`${enemy.name} slays ${player.name}`);
-      //--> SET PLAYER DEATH SEQUENCE
+      // SET PLAYER DEATH SEQUENCE
       playerDeathSequence();
     } else {
-      //--> DISPLAY DEFAULT TEXT ON SCORE SCREEN
+      // DISPLAY DEFAULT TEXT ON SCORE SCREEN
       setInfoText("Keep Fighting");
     }
   };
@@ -335,7 +351,7 @@ const ContextProvider = (props) => {
     }
   };
 
-  // --> NO NEGATIVE DEFENCE NUMBERS
+  //--> NO NEGATIVE DEFENCE NUMBERS
   const checkDefenceLessThanZero = (player) =>
     player.defence <= 0 && setPlayerDEF((player.defence = 0));
 
@@ -387,6 +403,10 @@ const ContextProvider = (props) => {
         setPlayerDEF,
         playerLog,
         setPlayerLog,
+        playerMoved,
+        setPlayerMoved,
+        playerAppeared,
+        setPlayerAppeared,
 
         playerRest,
         setSelectedPlayer,
@@ -403,6 +423,8 @@ const ContextProvider = (props) => {
         enemyLog,
         setEnemyLog,
         setSelectedEnemy,
+        enemyMoved,
+        setEnemyMoved,
 
         modal,
         setModal,

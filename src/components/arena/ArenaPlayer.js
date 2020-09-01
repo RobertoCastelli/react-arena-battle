@@ -4,6 +4,7 @@ import { Context } from "../../context";
 import { GiBiceps } from "react-icons/gi";
 import { GiLegArmor } from "react-icons/gi";
 import { GiBlackKnightHelm } from "react-icons/gi";
+const classNames = require("classnames");
 
 const ArenaPlayer = () => {
   const context = useContext(Context);
@@ -17,13 +18,18 @@ const ArenaPlayer = () => {
     defence,
     speed,
   } = context.player[0];
+  const { playerMoved, playerAppeared } = context;
 
   return (
     <div>
       <div className={arenaStyle.arenaPlayerWrapper}>
         <div className={arenaStyle.arenaPlayerContent}>
           <img
-            className={arenaStyle.arenaPlayerAvatar}
+            className={classNames(
+              `${arenaStyle.arenaPlayerAvatar}`,
+              !playerAppeared && `${arenaStyle.arenaPlayerAppear}`,
+              playerMoved && `${arenaStyle.arenaPlayerMove}`
+            )}
             src={avatar}
             alt="avatar"
           />
