@@ -22,7 +22,15 @@ const ContextProvider = (props) => {
   const [playerLog, setPlayerLog] = useState("...");
   const [enemyLog, setEnemyLog] = useState("...");
 
-  //--> GET SELECTED PLAYER
+  // --> SOUNDS
+  const [playPunch] = useSound(sounds[0].punch);
+  const [playSlap] = useSound(sounds[0].slap);
+  const [playLastResort] = useSound(sounds[0].special);
+  const [playShield] = useSound(sounds[0].sword);
+  const [playSummon] = useSound(sounds[0].monsterdraw);
+  const [playRest] = useSound(sounds[0].throwknife);
+
+  // --> GET SELECTED PLAYER
   const getPlayer = (champName) => {
     const champion = champions.filter((champ) => champ.name === champName);
     return champion;
@@ -45,6 +53,7 @@ const ContextProvider = (props) => {
 
   //--> SETS ENEMY IN THE ARENA
   const setSelectedEnemy = () => {
+    playSummon();
     const enemy = getEnemy();
     setEnemy(enemy);
     setShowActionButtons(true);
@@ -69,6 +78,7 @@ const ContextProvider = (props) => {
 
   //--> PLAYER ATTACK EFFECT
   const playerAttack = (enemy, player) => {
+    playPunch();
     let damage = damageCalculation(player, enemy);
     //--> CONSUME ENEMY HEALTH
     setEnemyHP((enemy.health -= damage));
@@ -99,6 +109,7 @@ const ContextProvider = (props) => {
 
   //--> ENEMY ATTACK EFFECT
   const enemyAttack = (enemy, player) => {
+    playSlap();
     let damage = damageCalculation(enemy, player);
     //--> CONSUME PLAYER HEALTH
     setPlayerHP((player.health -= damage));
@@ -128,6 +139,7 @@ const ContextProvider = (props) => {
 
   //--> PLAYER LASTRESORT SEQUENCE (ACHILLES HEEL)
   const playerLastResort = (enemy, player) => {
+    playLastResort();
     diceRoll(1, 6) <= 3 // <-<< EDIT THIS TO CHANGE DEATH SENTENCE
       ? setPlayerHP((player.health = 0))
       : setEnemyHP((enemy.health = 0));
@@ -137,6 +149,7 @@ const ContextProvider = (props) => {
 
   //--> PLAYER SHIELD SEQUENCE FIXME:
   const activePlayerShield = (enemy, player) => {
+    playShield();
     if (!playerDefended) {
       setPlayerDEF((player.defence += 1000));
       setPlayerDefended(true);
@@ -155,6 +168,7 @@ const ContextProvider = (props) => {
 
   //--> PLAYER REST STANCE FIXME:
   const playerRest = (enemy, player) => {
+    playRest();
     const rest = diceRoll(10, 50);
     setPlayerHP((player.health += rest));
     setPlayerEN((player.energy += rest));
