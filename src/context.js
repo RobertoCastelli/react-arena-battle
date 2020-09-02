@@ -5,7 +5,7 @@ import useSound from "use-sound";
 export const Context = createContext();
 
 const ContextProvider = (props) => {
-  //--> GLOBAL USE STATE
+  //--> GLOBAL STATE
   const [modalState, setModalState] = useState(false);
   const [modal, setModal] = useState(champions);
   const [player, setPlayer] = useState(champions);
@@ -35,7 +35,7 @@ const ContextProvider = (props) => {
   const [playRest] = useSound(sounds[0].throwknife);
   const [playFight] = useSound(sounds[0].fight, { volume: 0.05 });
 
-  //--> GET SELECTED PLAYER
+  //--> GET SELECTED PLAYER FROM ARRAY
   const getPlayer = (champName) => {
     const champion = champions.filter((champ) => champ.name === champName);
     return champion;
@@ -59,11 +59,16 @@ const ContextProvider = (props) => {
 
   //--> SETS ENEMY IN THE ARENA
   const setSelectedEnemy = () => {
+    // RESET ANIMATION
     setEnemyAppeared(false);
+    // PLAY SOUND
     playSummon();
+    // GET AND SET ENEMY
     const enemy = getEnemy();
     setEnemy(enemy);
+    // SET ACTIONS BUTTONS
     setShowActionButtons(true);
+    // INJECT TEXT
     setInfoText("Choose an action");
   };
 
@@ -81,7 +86,7 @@ const ContextProvider = (props) => {
     setEnemyHP((enemy.health -= damage));
     // CONSUME PLAYER ENERGY
     setPlayerEN((player.energy -= damage));
-    // SET SHIELD AVAILABLE AGAIN
+    // RESET SHIELD AVAILABLE AGAIN
     deactivatePlayerShield(player);
     // SHOW LOGS TEXT
     switch (hitChanceModifier) {
@@ -137,7 +142,6 @@ const ContextProvider = (props) => {
         setEnemyLog(`${enemy.name} is WEAK!`);
         break;
     }
-    setEnemyLog(`${enemy.name} hits for: ${damage}`);
   };
 
   //--> PLAYER ATTACK SEQUENCE
@@ -145,6 +149,7 @@ const ContextProvider = (props) => {
     playerAttack(enemy, player);
     checkDeath(enemy, player);
     checkEnergyLessThanZero(enemy, player);
+    // IF ENEMY STILL ALIVE --> ENEMY ATTACK
     enemy.alive === true &&
       delay(1500).then(() => enemyAttackSequence(enemy, player));
   };
@@ -156,36 +161,39 @@ const ContextProvider = (props) => {
     checkEnergyLessThanZero(enemy, player);
   };
 
+  // **************
+  // ACTION BUTTONS
+  // --------------
   //--> PLAYER LASTRESORT SEQUENCE (ACHILLES HEEL)
   const playerLastResort = (enemy, player) => {
     playLastResort();
-    diceRoll(1, 6) <= 3 // <-<< EDIT THIS TO CHANGE DEATH SENTENCE
+    diceRoll(1, 6) <= 3 // <-<< Edit this to change death sentence
       ? setPlayerHP((player.health = 0))
       : setEnemyHP((enemy.health = 0));
     checkDeath(enemy, player);
     deactivatePlayerShield(player);
   };
 
-  //--> PLAYER SHIELD SEQUENCE FIXME:
+  //--> PLAYER SHIELD SEQUENCE
   const activePlayerShield = (enemy, player) => {
     playShield();
     if (!playerDefended) {
-      setPlayerDEF((player.defence += 1000));
+      setPlayerDEF((player.defence += 1000)); // <-<< Edit this to change DEFENCE modifier
       setPlayerDefended(true);
       setInfoText(`${player.name} in defence stance`);
       delay(1500).then(() => enemyAttackSequence(enemy, player));
     }
   };
 
-  //--> RESET SHIELD SEQUENCE FIXME:
+  //--> RESET SHIELD SEQUENCE
   const deactivatePlayerShield = (player) => {
     if (playerDefended) {
       setPlayerDefended(false);
-      setPlayerDEF((player.defence -= 1000));
+      setPlayerDEF((player.defence -= 1000)); // <-<< Change this to reset DEFENCE modifier
     }
   };
 
-  //--> PLAYER REST STANCE FIXME:
+  //--> PLAYER REST STANCE
   const playerRest = (enemy, player) => {
     playRest();
     const rest = diceRoll(10, 50);
@@ -197,11 +205,16 @@ const ContextProvider = (props) => {
     setInfoText(`${player.name} heals for: ${rest}`);
     delay(1500).then(() => enemyAttackSequence(enemy, player));
   };
+  // ******************
+  // END ACTION BUTTONS
+  // ------------------
 
-  //--> SPAWN NEXT ENEMY FIXME:
+  //--> SPAWN NEXT ENEMY
   const enemyDefaultSpawn = () => {
+    // GET ALIVE ENEMIES
     const aliveEnemies = enemies.filter((enemy) => enemy.alive === true);
     const aliveEnemiesLength = aliveEnemies.length;
+    // IF THERE ARE STILL ENEMIES --> SPAWN ENEMY
     if (aliveEnemiesLength !== 0) {
       setInfoText("Summon a Demon");
       setEnemy(enemies[0]);
@@ -225,12 +238,12 @@ const ContextProvider = (props) => {
   //   }
   // };
 
-  // --> DAMAGE CALCULATION
+  //--> DAMAGE CALCULATION
   const damageCalculation = (attacker, defender) => {
     let strength = attacker.strength + diceRoll(0, 10);
     let defence = defender.defence + diceRoll(0, 10);
     let defenceMod = strength * (defence / 100);
-    // BASE DAMAGE CALC WITH DEFENCE & ENERGY MODIFIER
+    // DAMAGE CALC WITH STRENGTH, DEFENCE & ENERGY MODIFIER
     let baseDamage = Math.floor((strength - defenceMod) * energyMod(attacker));
     console.log(`baseDMG: ${baseDamage}`); // <-<< Delete this
     // DO NOT ACCEPT NEGATIVE VALUES
@@ -303,6 +316,7 @@ const ContextProvider = (props) => {
 
   //--> CHECK DEATH SEQUENCE
   const checkDeath = (enemy, player) => {
+    // IF ENEMY HEALTH = 0
     if (enemy.health <= 0) {
       getLevel();
       setEnemyHP((enemy.health = 0));
@@ -310,6 +324,7 @@ const ContextProvider = (props) => {
       setEnemyAlive(enemy, false);
       // AFTER ENEMY DEATH --> SPAWN NEXT ENEMY
       delay(2000).then(() => enemyDefaultSpawn());
+      // IF PLAYER HEALTH = 0
     } else if (player.health <= 0) {
       getLevel();
       setPlayerHP((player.health = 0));
@@ -317,7 +332,7 @@ const ContextProvider = (props) => {
       // SET PLAYER DEATH SEQUENCE
       playerDeathSequence();
     } else {
-      // DISPLAY DEFAULT TEXT ON SCORE SCREEN
+      // DISPLAY DEFAULT TEXT ON SCORE SCREEN IF NOONE DEAD
       setInfoText("Keep Fighting");
     }
   };
@@ -336,7 +351,7 @@ const ContextProvider = (props) => {
     delay(4000).then(() => (window.location.href = "/"));
   };
 
-  //--> SHOW ARENA LEVEL & SCORE
+  //--> SHOW ARENA LEVEL & SCORE BASED ON DEAD ENEMIES
   const getLevel = () => {
     const aliveEnemies = enemies.filter((enemy) => enemy.alive === true);
     const level = enemies.length - aliveEnemies.length;
