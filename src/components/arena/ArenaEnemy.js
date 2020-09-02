@@ -18,7 +18,7 @@ const ArenaEnemy = () => {
     defence,
     speed,
   } = context.enemy;
-  const { enemyMoved } = context;
+  const { enemyMoved, enemyAppeared } = context;
 
   return (
     <div>
@@ -27,6 +27,7 @@ const ArenaEnemy = () => {
           <img
             className={classNames(
               `${arenaStyle.arenaEnemyAvatar}`,
+              !enemyAppeared && `${arenaStyle.arenaEnemyAppear}`,
               enemyMoved && `${arenaStyle.arenaEnemyMove}`
             )}
             src={avatar}

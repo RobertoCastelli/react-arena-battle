@@ -61,7 +61,8 @@
   animation-duration: 1s;
 }
 
-.arenaPlayerAppear {
+.arenaPlayerAppear,
+.arenaEnemyAppear {
   animation-name: appear;
   animation-duration: 3s;
   animation-iteration-count: 1;
@@ -72,9 +73,6 @@
   top: -240px;
   left: -20px;
   width: 200px;
-  animation-name: appear;
-  animation-duration: 3s;
-  animation-iteration-count: 1;
 }
 
 .arenaPlayerImage,

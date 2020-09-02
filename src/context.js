@@ -20,6 +20,7 @@ const ContextProvider = (props) => {
   const [enemyHP, setEnemyHP] = useState(0);
   const [enemyEN, setEnemyEN] = useState(0);
   const [enemyMoved, setEnemyMoved] = useState(false);
+  const [enemyAppeared, setEnemyAppeared] = useState(false);
   const [enemyLog, setEnemyLog] = useState("...");
   const [showActionButtons, setShowActionButtons] = useState(false);
   const [level, setLevel] = useState(0);
@@ -58,6 +59,7 @@ const ContextProvider = (props) => {
 
   //--> SETS ENEMY IN THE ARENA
   const setSelectedEnemy = () => {
+    setEnemyAppeared(false);
     playSummon();
     const enemy = getEnemy();
     setEnemy(enemy);
@@ -68,9 +70,9 @@ const ContextProvider = (props) => {
   //--> PLAYER ATTACK EFFECT
   const playerAttack = (enemy, player) => {
     // ANIMATION SEQUENCE
-    setEnemyMoved(false);
     setPlayerMoved(true);
     setPlayerAppeared(true);
+    setEnemyMoved(false);
     // PLAY SOUND
     playPunch();
     // CALCULATE DAMAGE
@@ -106,6 +108,7 @@ const ContextProvider = (props) => {
   const enemyAttack = (enemy, player) => {
     // ANIMATION SEQUENCE
     setEnemyMoved(true);
+    setEnemyAppeared(true);
     setPlayerMoved(false);
     // PLAY SOUND
     playSlap();
@@ -425,6 +428,8 @@ const ContextProvider = (props) => {
         setSelectedEnemy,
         enemyMoved,
         setEnemyMoved,
+        enemyAppeared,
+        setEnemyAppeared,
 
         modal,
         setModal,
